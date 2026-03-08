@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wacky Rabbit | Myrtle Beach Gift Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --ocean-blue: #2A9D8F;
+            --sand-beige: #E9C46A;
+            --sunset-orange: #F4A261;
+            --coral-pink: #E76F51;
+            --deep-sea: #264653;
+            --white: #FFFFFF;
+            --light-bg: #FDF6E3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--deep-sea);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Fredoka One', cursive;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            color: var(--coral-pink);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--ocean-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--deep-sea);
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral-pink);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, rgba(42, 157, 143, 0.8), rgba(231, 111, 81, 0.8)), url('https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--coral-pink);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(231, 111, 81, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 111, 81, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--ocean-blue);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            background: var(--sand-beige);
+            color: var(--deep-sea);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--ocean-blue);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--coral-pink);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--deep-sea);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(2deg);
+            transition: transform 0.3s;
+        }
+
+        .about-image:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--light-bg);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            color: var(--coral-pink);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .product-icon {
+            font-size: 2.5rem;
+            color: var(--ocean-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(38, 70, 83, 0.8), transparent);
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Info Section */
+        .info-section {
+            background: linear-gradient(135deg, var(--ocean-blue), var(--deep-sea));
+            color: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .info-block h3 {
+            color: var(--sand-beige);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hours-list li.closed {
+            color: var(--coral-pink);
+            font-weight: 700;
+        }
+
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-details i {
+            color: var(--sand-beige);
+            width: 20px;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0;
+            max-width: 100%;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #eee;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-sea);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 0;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--sand-beige);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .map-overlay {
+                flex-direction: column;
+                width: 90%;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-carrot"></i>
+            The Wacky Rabbit
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>The Wacky Rabbit</h1>
+            <p>Fun Souvenirs & Unique Home Goods in Myrtle Beach</p>
+            <div class="hero-buttons">
+                <a href="tel:843-497-0717" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+                <a href="https://maps.google.com/?q=7702+N+Kings+Hwy,+Myrtle+Beach,+SC+29572" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-map-marker-alt"></i> Get Directions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about fade-in">
+        <h2 class="section-title">Welcome to Our Shop!</h2>
+        <p class="section-subtitle">A Myrtle Beach treasure for over 25 years</p>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <p>Step into The Wacky Rabbit and discover a world of whimsy and wonder! Located in the heart of Myrtle Beach, we're your go-to destination for unique gifts, charming home décor, and beach essentials.</p>
+                <p>Whether you're hunting for the perfect souvenir to remember your coastal vacation, searching for a distinctive piece to brighten your home, or picking up one of our ready-to-go picnic packs for a perfect beach day, we've got you covered.</p>
+                <p>Our friendly staff offers complimentary gift wrapping, and we ship nationwide so you can share the beach vibes with loved ones back home!</p>
+            </div>
+            <div class="about-image">
+                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="The Wacky Rabbit Interior - Stuffed animals and gifts">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products fade-in">
+        <h2 class="section-title">Our Collections</h2>
+        <p class="section-subtitle">Something special for everyone</p>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/1c96cec324909300caf8a4573658ef28b07d1399.jpg" alt="Myrtle Beach Souvenirs - Shells and starfish">
+                </div>
+                <div class="product-info">
+                    <div class="product-icon"><i class="fas fa-umbrella-beach"></i></div>
+                    <h3>Souvenirs</h3>
+                    <p>Beach-themed treasures, local crafts, and memorable keepsakes to commemorate your Myrtle Beach vacation.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Home Decor - Turtles and starfish ceramics">
+                </div>
+                <div class="product-info">
+                    <div class="product-icon"><i class="fas fa-home"></i></div>
+                    <h3>Home Goods</h3>
+                    <p>Unique décor pieces, coastal accents, and functional art that bring the beach vibes into your home.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/3374ebbc73cb2ea48969fe3b533615dbf7f9f46a.jpg" alt="Picnic Packs and Bags">
+                </div>
+                <div class="product-info">
+                    <div class="product-icon"><i class="fas fa-shopping-basket"></i></div>
+                    <h3>Picnic Packs</h3>
+                    <p>Ready-to-go beach picnic sets, stylish totes, and everything you need for the perfect day in the sand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section id="gallery" class="gallery fade-in">
+        <h2 class="section-title">Photo Gallery</h2>
+        <p class="section-subtitle">Take a peek inside our shop</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="The Wacky Rabbit Storefront">
+                <div class="gallery-overlay">
+                    <p>Our Storefront on N Kings Hwy</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Interior Gift Display">
+                <div class="gallery-overlay">
+                    <p>Cozy Interior Displays</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Ceramic Turtles and Starfish">
+                <div class="gallery-overlay">
+                    <p>Coastal Home Décor</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/3374ebbc73cb2ea48969fe3b533615dbf7f9f46a.jpg" alt="Bags and Picnic Items">
+                <div class="gallery-overlay">
+                    <p>Beach Bags & Accessories</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e86f6710f6fad36460bb9a5ce0a5744cad7adced.jpg" alt="Bunny at the Beach">
+                <div class="gallery-overlay">
+                    <p>Beach Vibes</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/1c96cec324909300caf8a4573658ef28b07d1399.jpg" alt="Beach Souvenirs">
+                <div class="gallery-overlay">
+                    <p>Myrtle Beach Souvenirs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Information -->
+    <section class="info-section fade-in" id="info">
+        <div class="info-grid">
+            <div class="info-block">
+                <h3><i class="fas fa-clock"></i> Store Hours</h3>
+                <ul class="hours-list">
+                    <li><span>Monday</span> <span>10 AM – 6 PM</span></li>
+                    <li><span>Tuesday</span> <span>10 AM – 6 PM</span></li>
+                    <li><span>Wednesday</span> <span>10 AM – 6 PM</span></li>
+                    <li><span>Thursday</span> <span>10 AM – 6 PM</span></li>
+                    <li><span>Friday</span> <span>10 AM – 6 PM</span></li>
+                    <li><span>Saturday</span> <span>10 AM – 6 PM</span></li>
+                    <li class="closed"><span>Sunday</span> <span>Closed</span></li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><i class="fas fa-map-marker-alt"></i> Visit Us</h3>
+                <div class="contact-details">
+                    <p><i class="fas fa-store"></i> <strong>The Wacky Rabbit</strong></p>
+                    <p><i class="fas fa-road"></i> 7702 N Kings Hwy</p>
+                    <p><i class="fas fa-city"></i> Myrtle Beach, SC 29572</p>
+                    <p><i class="fas fa-phone"></i> (843) 497-0717</p>
+                </div>
+            </div>
+
+            <div class="info-block">
+                <h3><i class="fas fa-gift"></i> Services</h3>
+                <div class="contact-details">
+                    <p><i class="fas fa-check"></i> Complimentary Gift Wrapping</p>
+                    <p><i class="fas fa-shipping-fast"></i> Nationwide Shipping</p>
+                    <p><i class="fas fa-credit-card"></i> Major Credit Cards Accepted</p>
+                    <p><i class="fas fa-history"></i> 25+ Years in Business</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map & Contact Section -->
+    <section class="map-section" id="contact">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.588638833728!2d-78.8194!3d33.7226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8900680000000000%3A0x0!2s7702%20N%20Kings%20Hwy%2C%20Myrtle%20Beach%2C%20SC%2029572!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+            
+            <div class="map-overlay">
+                <a href="tel:843-497-0717" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+                <a href="https://maps.google.com/?q=7702+N+Kings+Hwy,+Myrtle+Beach,+SC+29572" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-directions"></i> Get Directions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+        </div>
+        <p>&copy; 2026 The Wacky Rabbit. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">7702 N Kings Hwy, Myrtle Beach, SC 29572 | (843) 497-0717</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = 'white';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.padding = '1rem';
+            navLinks.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+        });
+    </script>
+</body>
+</html>
