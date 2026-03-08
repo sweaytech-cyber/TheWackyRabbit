@@ -1,1586 +1,550 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wacky Rabbit | Myrtle Beach Gift Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>The Wacky Rabbit | Fun Souvenirs & Home Goods | Myrtle Beach, SC</title>
+    <meta name="description" content="Visit The Wacky Rabbit in Myrtle Beach for unique souvenirs, home décor, and ready-to-go picnic packs. Located on Kings Highway.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocean': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        'coral': {
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        },
+                        'sand': {
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                        },
+                        'mint': {
+                            400: '#34d399',
+                            500: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        'fun': ['Fredoka', 'sans-serif'],
+                        'body': ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --sand: #F5F1E8;
-            --ocean: #2C5F5D;
-            --coral: #E07A5F;
-            --gold: #D4A373;
-            --charcoal: #3D405B;
-            --cream: #FAF9F6;
-            --white: #FFFFFF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--sand);
-            color: var(--charcoal);
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--coral);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background: rgba(224, 122, 95, 0.1);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.3s ease-out;
-        }
-
-        /* Loading Screen */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--ocean);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .loader-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--white);
-            overflow: hidden;
-        }
-
-        .loader-bar {
-            width: 200px;
-            height: 2px;
-            background: rgba(255,255,255,0.2);
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .loader-progress {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0%;
-            background: var(--coral);
-            transition: width 0.5s ease;
-        }
-
-        /* Navigation - Fixed Top Bar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            mix-blend-mode: difference;
-            transition: all 0.5s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            mix-blend-mode: normal;
-            padding: 1rem 4rem;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        nav.scrolled .nav-logo {
-            color: var(--ocean);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
-
-        nav.scrolled .nav-links a {
-            color: var(--charcoal);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--coral);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section - Full Screen with WebGL Canvas */
-        .hero {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-subtitle {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 400;
-            line-height: 1;
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .hero-title span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(100%);
-        }
-
-        .hero-tagline {
-            font-size: 1.2rem;
-            font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            opacity: 0;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid currentColor;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--coral);
-            color: var(--white);
-            border-color: var(--coral);
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--coral);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-        }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--ocean);
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0;
-        }
-
-        .scroll-text {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--white);
-            writing-mode: vertical-rl;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: rgba(255,255,255,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scroll-line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: var(--white);
-            animation: scrollDown 2s infinite;
-        }
-
-        @keyframes scrollDown {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(200%); }
-        }
-
-        /* Section Styles */
-        section {
-            position: relative;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 4rem;
-            padding: 0 4rem;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--coral);
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 400;
-            line-height: 1.1;
-            color: var(--ocean);
-        }
-
-        /* About Section - Split Layout */
-        .about {
-            padding: 10rem 4rem;
-            background: var(--cream);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(212,163,115,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .about-images {
-            position: relative;
-            height: 600px;
-        }
-
-        .about-img {
-            position: absolute;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-img-1 {
-            width: 70%;
-            height: 80%;
-            top: 0;
-            left: 0;
-            z-index: 2;
-        }
-
-        .about-img-2 {
-            width: 50%;
-            height: 50%;
-            bottom: 0;
-            right: 0;
-            z-index: 3;
-            border: 10px solid var(--cream);
-        }
-
-        .about-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-
-        .about-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature {
-            padding: 1.5rem;
-            background: var(--white);
-            border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--coral);
-        }
-
-        .feature-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--ocean);
-        }
-
-        .feature-text {
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* Products Section - Horizontal Scroll */
-        .products {
-            padding: 10rem 0;
-            background: var(--ocean);
-            color: var(--white);
-            overflow: hidden;
-        }
-
-        .products-header {
-            padding: 0 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .products-header .section-title {
-            color: var(--white);
-        }
-
-        .products-slider {
-            display: flex;
-            gap: 3rem;
-            padding: 0 4rem;
-            cursor: grab;
-        }
-
-        .products-slider:active {
-            cursor: grabbing;
-        }
-
-        .product-card {
-            flex: 0 0 400px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: transform 0.4s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-image {
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .product-card:hover .product-image img {
-            transform: scale(1.1);
-        }
-
-        .product-info {
-            padding: 2rem;
-        }
-
-        .product-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .product-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .product-desc {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        /* Gallery Section - Masonry with Parallax */
-        .gallery {
-            padding: 10rem 4rem;
-            background: var(--sand);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        .gallery-item:nth-child(2) {
-            margin-top: 4rem;
-        }
-
-        .gallery-item:nth-child(3) {
-            margin-top: 2rem;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(44,95,93,0.9), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 2rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-title {
-            color: var(--white);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-        }
-
-        .gallery-item:hover .gallery-title {
-            transform: translateY(0);
-        }
-
-        /* Info Section - Dark Mode */
-        .info {
-            padding: 8rem 4rem;
-            background: var(--charcoal);
-            color: var(--white);
-            position: relative;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .info-block h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: var(--gold);
-        }
-
-        .hours-list {
-            list-style: none;
-        }
-
-        .hours-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
-        .hours-list li:hover {
-            color: var(--gold);
-        }
-
-        .hours-list li.closed {
-            color: var(--coral);
-        }
-
-        .contact-info p {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .contact-info i {
-            color: var(--gold);
-            width: 20px;
-        }
-
-        .services-list {
-            list-style: none;
-        }
-
-        .services-list li {
-            padding: 0.8rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        .services-list li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--coral);
-        }
-
-        /* Map Section */
-        .map-section {
-            position: relative;
-            height: 600px;
-            background: #eee;
-            overflow: hidden;
-        }
-
-        .map-container {
-            width: 100%;
-            height: 100%;
-            filter: grayscale(100%) contrast(1.2);
-            opacity: 0.8;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .map-overlay {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--white);
-            padding: 1.5rem 3rem;
-            border-radius: 100px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--ocean);
-            color: var(--white);
-            padding: 4rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-text {
-            opacity: 0.8;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+        }
+        .font-fun {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .wave-bg {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230ea5e9' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        .bounce-slow {
+            animation: bounce 3s infinite;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0ea5e9 0%, #f43f5e 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
             transition: all 0.3s ease;
         }
-
-        .social-links a:hover {
-            background: var(--coral);
-            border-color: var(--coral);
-            transform: translateY(-3px);
+        .card-hover:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
         }
-
-        .copyright {
-            font-size: 0.8rem;
-            opacity: 0.6;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .btn-bounce:hover {
+            animation: bounce 1s;
         }
-
-        /* Chromatic Aberration Effect */
-        .chromatic {
-            position: relative;
+        .gallery-item {
+            transition: all 0.3s ease;
         }
-
-        .chromatic::before,
-        .chromatic::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: inherit;
-            mix-blend-mode: screen;
-            opacity: 0;
-            transition: opacity 0.3s;
+        .gallery-item:hover {
+            transform: scale(1.05);
+            z-index: 10;
         }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-
-            .about-images {
-                height: 400px;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-item:nth-child(2),
-            .gallery-item:nth-child(3) {
-                margin-top: 0;
-            }
-
-            body {
-                cursor: auto;
-            }
-
-            .cursor, .cursor-follower {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-                padding: 0 2rem;
-            }
-
-            .about,
-            .gallery,
-            .info {
-                padding: 6rem 2rem;
-            }
-
-            .product-card {
-                flex: 0 0 300px;
-            }
-
-            .map-overlay {
-                flex-direction: column;
-                width: 90%;
-                text-align: center;
-                border-radius: 20px;
-            }
-        }
-
-        /* Text Scramble Effect */
-        .scramble-text {
-            display: inline-block;
-        }
-
-        /* Smooth scroll container */
-        .smooth-scroll {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            will-change: transform;
+        .pattern-bg {
+            background-image: radial-gradient(#0ea5e9 1px, transparent 1px);
+            background-size: 20px 20px;
         }
     </style>
 </head>
-<body>
-
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- Loading Screen -->
-    <div class="loader">
-        <div class="loader-text">The Wacky Rabbit</div>
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
-        </div>
-    </div>
+<body class="text-gray-800 overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav>
-        <a href="#" class="nav-logo">The Wacky Rabbit</a>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#products">Collections</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#visit">Visit</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-lg border-b-4 border-ocean-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-coral-500 to-ocean-500 rounded-full flex items-center justify-center text-white font-fun text-xl group-hover:rotate-12 transition-transform">
+                        🐰
+                    </div>
+                    <span class="font-fun text-2xl font-bold gradient-text">The Wacky Rabbit</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">About</a>
+                    <a href="#products" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Products</a>
+                    <a href="#gallery" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Gallery</a>
+                    <a href="#visit" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Visit Us</a>
+                    <a href="tel:8434970717" class="bg-coral-500 text-white px-6 py-2 rounded-full font-fun font-semibold hover:bg-coral-600 transition-all btn-bounce shadow-lg">
+                        Call Now
+                    </a>
+                </div>
 
-    <!-- Hero Section with WebGL Background -->
-    <section class="hero" id="home">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-content">
-            <p class="hero-subtitle">Est. 1999 • Myrtle Beach</p>
-            <h1 class="hero-title">
-                <span>The</span> <span>Wacky</span> <span>Rabbit</span>
-            </h1>
-            <p class="hero-tagline">Fun Souvenirs & Unique Home Goods in Myrtle Beach. Discover treasures for your beach days and beyond.</p>
-            <div class="hero-buttons">
-                <a href="tel:843-497-0717" class="btn btn-primary">Call Now</a>
-                <a href="https://maps.google.com/?q=7702+N+Kings+Hwy,+Myrtle+Beach,+SC+29572" target="_blank" class="btn btn-secondary">Get Directions</a>
+                <!-- Mobile Menu Button -->
+                <button id="mobileBtn" class="md:hidden p-2 rounded-lg bg-ocean-100 text-ocean-600">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <span class="scroll-text">Scroll</span>
-            <div class="scroll-line"></div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#about" class="block font-fun text-xl text-gray-700 hover:text-coral-500">About</a>
+                <a href="#products" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Products</a>
+                <a href="#gallery" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Gallery</a>
+                <a href="#visit" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Visit Us</a>
+                <a href="tel:8434970717" class="block w-full text-center bg-coral-500 text-white py-3 rounded-full font-fun font-bold">Call (843) 497-0717</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 wave-bg opacity-50"></div>
+        <div class="absolute top-20 right-0 w-64 h-64 bg-coral-400/20 rounded-full blur-3xl float-animation"></div>
+        <div class="absolute bottom-20 left-0 w-96 h-96 bg-ocean-400/20 rounded-full blur-3xl float-animation" style="animation-delay: 2s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left space-y-6">
+                    <div class="inline-block bg-sand-200 text-ocean-800 px-4 py-1 rounded-full font-fun text-sm font-bold mb-4 animate-pulse">
+                        🏖️ Myrtle Beach's Favorite Gift Shop
+                    </div>
+                    <h1 class="font-fun text-5xl md:text-7xl font-bold leading-tight">
+                        The <span class="text-coral-500 inline-block hover:scale-110 transition-transform cursor-pointer">Wacky</span> 
+                        <span class="text-ocean-600 inline-block hover:scale-110 transition-transform cursor-pointer delay-100">Rabbit</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600 font-fun max-w-lg mx-auto lg:mx-0">
+                        Fun Souvenirs & Unique Home Goods in Myrtle Beach
+                    </p>
+                    <p class="text-gray-600 max-w-md mx-auto lg:mx-0">
+                        Discover treasures, beach essentials, and perfect gifts at our cozy shop on Kings Highway!
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="tel:8434970717" class="bg-gradient-to-r from-coral-500 to-coral-600 text-white px-8 py-4 rounded-full font-fun font-bold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                            Call Now
+                        </a>
+                        <a href="https://maps.google.com/?q=7702+N+Kings+Hwy+Myrtle+Beach+SC+29572" target="_blank" class="bg-white text-ocean-600 border-4 border-ocean-400 px-8 py-4 rounded-full font-fun font-bold text-lg shadow-lg hover:bg-ocean-50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            Get Directions
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-500">
+                        <div class="flex items-center gap-1">
+                            <i data-lucide="star" class="w-5 h-5 text-sand-400 fill-sand-400"></i>
+                            <span class="font-bold">4.8</span>
+                            <span>Rating</span>
+                        </div>
+                        <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+                        <span>Open Today 10 AM - 6 PM</span>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="The Wacky Rabbit Storefront" class="w-full h-[500px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-4 py-2 rounded-full font-fun text-sm font-bold text-ocean-800">
+                            📍 7702 N Kings Hwy
+                        </div>
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="absolute -top-6 -right-6 bg-sand-300 text-ocean-900 p-4 rounded-2xl shadow-xl float-animation font-fun font-bold text-center hidden md:block">
+                        <div class="text-2xl">🎁</div>
+                        <div class="text-xs">Unique<br>Gifts</div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-mint-400 text-white p-4 rounded-2xl shadow-xl float-animation font-fun font-bold text-center hidden md:block" style="animation-delay: 1s;">
+                        <div class="text-2xl">🏖️</div>
+                        <div class="text-xs">Beach<br>Ready</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-grid">
-            <div class="about-images">
-                <div class="about-img about-img-1">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="Storefront">
-                </div>
-                <div class="about-img about-img-2">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Interior">
-                </div>
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-ocean-50 to-transparent"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">Welcome to Our Shop! 🐰</h2>
+                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full"></div>
             </div>
-            <div class="about-content">
-                <p class="section-label">About Us</p>
-                <h2 class="section-title">A Treasure Trove of Unique Finds</h2>
-                <p class="about-text">
-                    Step into The Wacky Rabbit and discover a world of whimsy and wonder. For over 25 years, we've been Myrtle Beach's go-to destination for unique gifts, charming home décor, and beach essentials. Whether you're hunting for the perfect souvenir or searching for a distinctive piece to brighten your home, we've got you covered.
-                </p>
-                <p class="about-text">
-                    Our friendly staff offers complimentary gift wrapping, and we ship nationwide so you can share the beach vibes with loved ones back home.
-                </p>
-                <div class="about-features">
-                    <div class="feature">
-                        <div class="feature-icon">🎁</div>
-                        <div class="feature-title">Gift Wrapping</div>
-                        <div class="feature-text">Complimentary on all purchases</div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        The Wacky Rabbit is your friendly neighborhood gift shop in the heart of Myrtle Beach! We're a local treasure trove filled with <span class="text-coral-500 font-bold">unique souvenirs</span>, charming <span class="text-ocean-600 font-bold">home décor</span>, and practical <span class="text-sand-500 font-bold">picnic packs</span> perfect for your beach adventures.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Whether you're a tourist looking for the perfect memento or a local searching for that special something, our cozy shop offers a carefully curated selection of items that bring joy and functionality together.
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 pt-4">
+                        <div class="text-center p-4 bg-ocean-50 rounded-2xl">
+                            <div class="text-3xl mb-2">🎨</div>
+                            <div class="font-fun font-bold text-ocean-800">Unique</div>
+                        </div>
+                        <div class="text-center p-4 bg-coral-50 rounded-2xl">
+                            <div class="text-3xl mb-2">❤️</div>
+                            <div class="font-fun font-bold text-coral-800">Local</div>
+                        </div>
+                        <div class="text-center p-4 bg-sand-100 rounded-2xl">
+                            <div class="text-3xl mb-2">☀️</div>
+                            <div class="font-fun font-bold text-yellow-800">Beachy</div>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">🚚</div>
-                        <div class="feature-title">Shipping</div>
-                        <div class="feature-text">Nationwide delivery available</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🏖️</div>
-                        <div class="feature-title">Beach Ready</div>
-                        <div class="feature-text">Picnic packs & essentials</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">💎</div>
-                        <div class="feature-title">Unique Items</div>
-                        <div class="feature-text">Curated with care since 1999</div>
+                </div>
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Store Interior with Stuffed Animals" class="rounded-2xl shadow-lg w-full h-48 object-cover transform hover:scale-105 transition-transform">
+                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/c47c3c9c347eae189aea211f51be66cc29fa3dc4.jpg" alt="Picnic Packs and Bags" class="rounded-2xl shadow-lg w-full h-48 object-cover transform hover:scale-105 transition-transform mt-8">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Section - Horizontal Scroll -->
-    <section class="products" id="products">
-        <div class="products-header">
-            <p class="section-label">Collections</p>
-            <h2 class="section-title">Curated For You</h2>
-        </div>
-        <div class="products-slider">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/1c96cec324909300caf8a4573658ef28b07d1399.jpg" alt="Souvenirs">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Collection</p>
-                    <h3 class="product-title">Souvenirs</h3>
-                    <p class="product-desc">Beach-themed treasures, local crafts, and memorable keepsakes to commemorate your Myrtle Beach vacation.</p>
-                </div>
+    <!-- Products Section -->
+    <section id="products" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ocean-50 to-white pattern-bg">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">What We Offer 🛍️</h2>
+                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">From beach essentials to home treasures, find exactly what you need for your Myrtle Beach experience</p>
             </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Home Goods">
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Souvenirs -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-ocean-100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Beach Souvenirs and Decor" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-coral-500 text-white px-3 py-1 rounded-full font-fun text-sm font-bold">
+                            Popular!
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-3xl">🐚</span>
+                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Souvenirs</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Beach-themed keepsakes, local crafts, and memorable gifts to remember your Myrtle Beach vacation.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Beach decor items</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Local artisan goods</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Vacation mementos</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <p class="product-category">Collection</p>
-                    <h3 class="product-title">Home Goods</h3>
-                    <p class="product-desc">Unique décor pieces, coastal accents, and functional art that bring the beach vibes into your home.</p>
+
+                <!-- Home Goods -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-coral-100">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/52e4986903eb839ccbd61e869a96b42c612e5fbd.jpg" alt="Home Decor and Gifts" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-3xl">🏠</span>
+                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Home Goods</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Beautiful home décor, decorative items, and unique furnishings to add coastal charm to any space.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Coastal decorations</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Candles & fragrances</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Wall art & clocks</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/3374ebbc73cb2ea48969fe3b533615dbf7f9f46a.jpg" alt="Picnic Packs">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Collection</p>
-                    <h3 class="product-title">Picnic Packs</h3>
-                    <p class="product-desc">Ready-to-go beach picnic sets, stylish totes, and everything you need for the perfect day in the sand.</p>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e86f6710f6fad36460bb9a5ce0a5744cad7adced.jpg" alt="Gifts">
-                </div>
-                <div class="product-info">
-                    <p class="product-category">Collection</p>
-                    <h3 class="product-title">Gifts</h3>
-                    <p class="product-desc">Perfect presents for every occasion, from plush friends to coastal-inspired treasures.</p>
+
+                <!-- Picnic Packs -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-sand-200">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/85b1c3528d8b468279ac26360516401f1aecca19.jpeg" alt="Beach Picnic Setup" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-3xl">🧺</span>
+                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Picnic Packs</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Ready-to-go beach picnic sets, coolers, and bags perfect for your day in the sand and sun.</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Insulated coolers</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Beach bags & totes</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Picnic accessories</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="section-header">
-            <div>
-                <p class="section-label">Gallery</p>
-                <h2 class="section-title">Inside Our Shop</h2>
+    <!-- Photo Gallery -->
+    <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">Photo Gallery 📸</h2>
+                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600">Take a peek inside The Wacky Rabbit!</p>
             </div>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="Storefront">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Our Storefront</h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="Storefront" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Our Storefront</span>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Interior">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Cozy Interior</h3>
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Stuffed Animals Display" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Cuddly Friends</span>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Products">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Coastal Décor</h3>
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/c47c3c9c347eae189aea211f51be66cc29fa3dc4.jpg" alt="Picnic Bags" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Beach Gear</span>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/3374ebbc73cb2ea48969fe3b533615dbf7f9f46a.jpg" alt="Bags">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Beach Bags</h3>
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/52e4986903eb839ccbd61e869a96b42c612e5fbd.jpg" alt="Home Decor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Home Decor</span>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e86f6710f6fad36460bb9a5ce0a5744cad7adced.jpg" alt="Beach">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Beach Vibes</h3>
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group md:col-span-2">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e86f6710f6fad36460bb9a5ce0a5744cad7adced.jpg" alt="Beach Bunny" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Beach Vibes</span>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/1c96cec324909300caf8a4573658ef28b07d1399.jpg" alt="Souvenirs">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">Shells & Treasures</h3>
+                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group md:col-span-2">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/644dba20f5432d91b6b65fc0fce0104788f57c66.jpg" alt="Crab Clock" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white font-fun font-bold">Coastal Time</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Info Section -->
-    <section class="info" id="visit">
-        <div class="info-grid">
-            <div class="info-block">
-                <h3>Store Hours</h3>
-                <ul class="hours-list">
-                    <li><span>Monday</span> <span>10 AM – 6 PM</span></li>
-                    <li><span>Tuesday</span> <span>10 AM – 6 PM</span></li>
-                    <li><span>Wednesday</span> <span>10 AM – 6 PM</span></li>
-                    <li><span>Thursday</span> <span>10 AM – 6 PM</span></li>
-                    <li><span>Friday</span> <span>10 AM – 6 PM</span></li>
-                    <li><span>Saturday</span> <span>10 AM – 6 PM</span></li>
-                    <li class="closed"><span>Sunday</span> <span>Closed</span></li>
-                </ul>
+    <!-- Visit Us / Store Info -->
+    <section id="visit" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ocean-600 to-ocean-800 text-white relative overflow-hidden">
+        <!-- Decorative waves -->
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-12" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10 pt-12">
+            <div class="text-center mb-12">
+                <h2 class="font-fun text-4xl md:text-5xl font-bold mb-4">Visit Us Today! 🐰</h2>
+                <div class="w-24 h-2 bg-sand-400 mx-auto rounded-full"></div>
             </div>
-            <div class="info-block">
-                <h3>Contact</h3>
-                <div class="contact-info">
-                    <p><i>📍</i> 7702 N Kings Hwy, Myrtle Beach, SC 29572</p>
-                    <p><i>📞</i> (843) 497-0717</p>
-                    <p><i>✉️</i> info@thewackyrabbit.com</p>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Info Card -->
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border-2 border-white/20">
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-coral-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-fun text-xl font-bold mb-1">Address</h3>
+                                <p class="text-ocean-100">7702 N Kings Hwy<br>Myrtle Beach, SC 29572</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-sand-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-fun text-xl font-bold mb-1">Phone</h3>
+                                <a href="tel:8434970717" class="text-ocean-100 hover:text-white transition-colors text-lg">(843) 497-0717</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-mint-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="clock" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-fun text-xl font-bold mb-2">Store Hours</h3>
+                                <div class="grid grid-cols-2 gap-2 text-sm text-ocean-100">
+                                    <div class="flex justify-between"><span>Monday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Tuesday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Wednesday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Thursday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Friday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Saturday:</span> <span>10 AM - 6 PM</span></div>
+                                    <div class="flex justify-between text-coral-300 col-span-2"><span>Sunday:</span> <span>Closed</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <a href="https://maps.google.com/?q=7702+N+Kings+Hwy+Myrtle+Beach+SC+29572" target="_blank" class="flex-1 bg-white text-ocean-800 py-3 rounded-full font-fun font-bold text-center hover:bg-sand-200 transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="navigation" class="w-5 h-5"></i>
+                            Get Directions
+                        </a>
+                        <a href="tel:8434970717" class="flex-1 bg-coral-500 text-white py-3 rounded-full font-fun font-bold text-center hover:bg-coral-600 transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="phone-call" class="w-5 h-5"></i>
+                            Call Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Map Placeholder / Visual -->
+                <div class="relative">
+                    <div class="bg-white rounded-3xl p-4 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-ocean-100 rounded-2xl h-80 flex items-center justify-center relative overflow-hidden">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/0653119c53ed34e8f9da0281cd01ad7338fcb06e.jpg" alt="Myrtle Beach Ocean View" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                            <div class="relative z-10 text-center p-6">
+                                <div class="w-20 h-20 bg-coral-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg bounce-slow">
+                                    <span class="text-4xl">🐰</span>
+                                </div>
+                                <h3 class="font-fun text-2xl font-bold text-ocean-900 mb-2">Find Us on Kings Hwy!</h3>
+                                <p class="text-ocean-700">Located in the heart of Myrtle Beach shopping district</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative elements -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-sand-400/30 rounded-full blur-3xl"></div>
                 </div>
             </div>
-            <div class="info-block">
-                <h3>Services</h3>
-                <ul class="services-list">
-                    <li>Complimentary Gift Wrapping</li>
-                    <li>Nationwide Shipping</li>
-                    <li>Personal Shopping Assistance</li>
-                    <li>Corporate Gifting</li>
-                    <li>Beach Picnic Consultation</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section" id="contact">
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.588638833728!2d-78.8194!3d33.7226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8900680000000000%3A0x0!2s7702%20N%20Kings%20Hwy%2C%20Myrtle%20Beach%2C%20SC%2029572!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" 
-                allowfullscreen="" 
-                loading="lazy">
-            </iframe>
-        </div>
-        <div class="map-overlay">
-            <a href="tel:843-497-0717" class="btn btn-primary">Call Now</a>
-            <a href="https://maps.google.com/?q=7702+N+Kings+Hwy,+Myrtle+Beach,+SC+29572" target="_blank" class="btn btn-secondary" style="color: var(--charcoal); border-color: var(--charcoal);">Get Directions</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">The Wacky Rabbit</div>
-            <p class="footer-text">Your destination for fun souvenirs and unique home goods in Myrtle Beach since 1999.</p>
-            <div class="social-links">
-                <a href="#">FB</a>
-                <a href="#">IG</a>
-                <a href="#">TA</a>
+    <footer class="bg-ocean-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🐰</span>
+                        <span class="font-fun text-2xl font-bold">The Wacky Rabbit</span>
+                    </div>
+                    <p class="text-ocean-200 text-sm">Your favorite local gift shop in Myrtle Beach, SC. Offering unique souvenirs, home goods, and beach essentials since 2014.</p>
+                </div>
+                <div>
+                    <h4 class="font-fun font-bold text-lg mb-4 text-sand-400">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-ocean-200">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#products" class="hover:text-white transition-colors">Our Products</a></li>
+                        <li><a href="#gallery" class="hover:text-white transition-colors">Photo Gallery</a></li>
+                        <li><a href="#visit" class="hover:text-white transition-colors">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-fun font-bold text-lg mb-4 text-sand-400">Contact</h4>
+                    <ul class="space-y-2 text-sm text-ocean-200">
+                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> 7702 N Kings Hwy, Myrtle Beach, SC</li>
+                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> (843) 497-0717</li>
+                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Open Tue-Sat 10AM-6PM</li>
+                    </ul>
+                </div>
             </div>
-            <p class="copyright">© 2026 The Wacky Rabbit. All rights reserved. 7702 N Kings Hwy, Myrtle Beach, SC 29572</p>
+            <div class="border-t border-ocean-800 pt-8 text-center text-sm text-ocean-400">
+                <p>&copy; 2024 The Wacky Rabbit. All rights reserved. | Myrtle Beach, SC</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Register GSAP plugins
-        gsap.registerPlugin(ScrollTrigger);
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-        // Loading Animation
-        window.addEventListener('load', () => {
-            const loader = document.querySelector('.loader');
-            const progress = document.querySelector('.loader-progress');
-            
-            progress.style.width = '100%';
-            
-            setTimeout(() => {
-                gsap.to(loader, {
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power2.inOut',
-                    onComplete: () => {
-                        loader.style.display = 'none';
-                        initAnimations();
-                    }
-                });
-            }, 800);
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, {
-                x: e.clientX - 10,
-                y: e.clientY - 10,
-                duration: 0.1
-            });
-            gsap.to(follower, {
-                x: e.clientX - 20,
-                y: e.clientY - 20,
-                duration: 0.3
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
 
-        document.querySelectorAll('a, button, .gallery-item, .product-card').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                gsap.to(cursor, { scale: 2, duration: 0.3 });
-                gsap.to(follower, { scale: 1.5, duration: 0.3 });
-            });
-            el.addEventListener('mouseleave', () => {
-                gsap.to(cursor, { scale: 1, duration: 0.3 });
-                gsap.to(follower, { scale: 1, duration: 0.3 });
-            });
-        });
-
-        // Navigation scroll effect
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // WebGL Hero Background - Particle Wave Effect
-        function initHeroCanvas() {
-            const canvas = document.getElementById('hero-canvas');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            // Create particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 1500;
-            const posArray = new Float32Array(particlesCount * 3);
-            const scaleArray = new Float32Array(particlesCount);
-
-            for(let i = 0; i < particlesCount * 3; i += 3) {
-                posArray[i] = (Math.random() - 0.5) * 10;
-                posArray[i+1] = (Math.random() - 0.5) * 10;
-                posArray[i+2] = (Math.random() - 0.5) * 10;
-                scaleArray[i/3] = Math.random();
-            }
-
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            particlesGeometry.setAttribute('aScale', new THREE.BufferAttribute(scaleArray, 1));
-
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0xffffff,
-                transparent: true,
-                opacity: 0.6,
-                blending: THREE.AdditiveBlending
-            });
-
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-
-            camera.position.z = 3;
-
-            let mouseX = 0;
-            let mouseY = 0;
-
-            document.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX / window.innerWidth - 0.5;
-                mouseY = event.clientY / window.innerHeight - 0.5;
-            });
-
-            const clock = new THREE.Clock();
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
-
-                particlesMesh.rotation.y = elapsedTime * 0.05;
-                particlesMesh.rotation.x = mouseY * 0.5;
-                particlesMesh.rotation.y += mouseX * 0.5;
-
-                // Wave effect
-                const positions = particlesGeometry.attributes.position.array;
-                for(let i = 0; i < particlesCount; i++) {
-                    const i3 = i * 3;
-                    positions[i3 + 1] += Math.sin(elapsedTime + positions[i3]) * 0.002;
-                }
-                particlesGeometry.attributes.position.needsUpdate = true;
-
-                renderer.render(scene, camera);
-            }
-
-            animate();
-
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
-        // Main Animations
-        function initAnimations() {
-            initHeroCanvas();
-
-            // Hero text reveal
-            gsap.to('.hero-subtitle', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 0.2,
-                ease: 'power3.out'
-            });
-
-            gsap.to('.hero-title span', {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                stagger: 0.1,
-                delay: 0.4,
-                ease: 'power3.out'
-            });
-
-            gsap.to('.hero-tagline', {
-                opacity: 0.9,
-                duration: 1,
-                delay: 0.8,
-                ease: 'power3.out'
-            });
-
-            gsap.to('.hero-buttons', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: 1,
-                ease: 'power3.out'
-            });
-
-            gsap.to('.scroll-indicator', {
-                opacity: 1,
-                duration: 1,
-                delay: 1.5
-            });
-
-            // Hero parallax on scroll
-            gsap.to('.hero-content', {
-                scrollTrigger: {
-                    trigger: '.hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true
-                },
-                y: 200,
-                opacity: 0
-            });
-
-            // About section animations
-            gsap.from('.about-img-1', {
-                scrollTrigger: {
-                    trigger: '.about',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                x: -100,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out'
-            });
-
-            gsap.from('.about-img-2', {
-                scrollTrigger: {
-                    trigger: '.about',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                x: 100,
-                opacity: 0,
-                duration: 1.2,
-                delay: 0.2,
-                ease: 'power3.out'
-            });
-
-            gsap.from('.about-content > *', {
-                scrollTrigger: {
-                    trigger: '.about',
-                    start: 'top 70%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power3.out'
-            });
-
-            // Parallax on about images
-            gsap.to('.about-img-1', {
-                scrollTrigger: {
-                    trigger: '.about',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1
-                },
-                y: -50
-            });
-
-            gsap.to('.about-img-2', {
-                scrollTrigger: {
-                    trigger: '.about',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1
-                },
-                y: 50
-            });
-
-            // Products horizontal scroll
-            const slider = document.querySelector('.products-slider');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('active');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
-            });
-
-            // Product cards entrance
-            gsap.from('.product-card', {
-                scrollTrigger: {
-                    trigger: '.products',
-                    start: 'top 70%',
-                    toggleActions: 'play none none reverse'
-                },
-                x: 100,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: 'power3.out'
-            });
-
-            // Gallery items entrance with stagger
-            gsap.from('.gallery-item', {
-                scrollTrigger: {
-                    trigger: '.gallery',
-                    start: 'top 70%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power3.out'
-            });
-
-            // Gallery parallax
-            document.querySelectorAll('.gallery-item').forEach((item, index) => {
-                const speed = index % 2 === 0 ? -30 : 30;
-                gsap.to(item, {
-                    scrollTrigger: {
-                        trigger: '.gallery',
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 1
-                    },
-                    y: speed
-                });
-            });
-
-            // Info section entrance
-            gsap.from('.info-block', {
-                scrollTrigger: {
-                    trigger: '.info',
-                    start: 'top 70%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: 'power3.out'
-            });
-
-            // Map section
-            gsap.from('.map-overlay', {
-                scrollTrigger: {
-                    trigger: '.map-section',
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            });
-        }
-
-        // Smooth scroll for navigation
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    gsap.to(window, {
-                        duration: 1.5,
-                        scrollTo: {
-                            y: target,
-                            offsetY: 70
-                        },
-                        ease: 'power3.inOut'
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
 
-        // Text scramble effect on hover for nav links
-        class TextScramble {
-            constructor(el) {
-                this.el = el;
-                this.chars = '!<>-_\\/[]{}—=+*^?#________';
-                this.update = this.update.bind(this);
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
             }
-            setText(newText) {
-                const oldText = this.el.innerText;
-                const length = Math.max(oldText.length, newText.length);
-                const promise = new Promise((resolve) => this.resolve = resolve);
-                this.queue = [];
-                for (let i = 0; i < length; i++) {
-                    const from = oldText[i] || '';
-                    const to = newText[i] || '';
-                    const start = Math.floor(Math.random() * 40);
-                    const end = start + Math.floor(Math.random() * 40);
-                    this.queue.push({ from, to, start, end });
-                }
-                cancelAnimationFrame(this.frameRequest);
-                this.frame = 0;
-                this.update();
-                return promise;
-            }
-            update() {
-                let output = '';
-                let complete = 0;
-                for (let i = 0, n = this.queue.length; i < n; i++) {
-                    let { from, to, start, end, char } = this.queue[i];
-                    if (this.frame >= end) {
-                        complete++;
-                        output += to;
-                    } else if (this.frame >= start) {
-                        if (!char || Math.random() < 0.28) {
-                            char = this.randomChar();
-                            this.queue[i].char = char;
-                        }
-                        output += `<span class="dud">${char}</span>`;
-                    } else {
-                        output += from;
-                    }
-                }
-                this.el.innerHTML = output;
-                if (complete === this.queue.length) {
-                    this.resolve();
-                } else {
-                    this.frameRequest = requestAnimationFrame(this.update);
-                    this.frame++;
-                }
-            }
-            randomChar() {
-                return this.chars[Math.floor(Math.random() * this.chars.length)];
-            }
-        }
-
-        // Apply text scramble to nav links
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            const fx = new TextScramble(link);
-            const originalText = link.innerText;
-            
-            link.addEventListener('mouseenter', () => {
-                fx.setText(originalText);
-            });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 </body>
 </html>
