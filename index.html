@@ -3,46 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wacky Rabbit | Fun Souvenirs & Home Goods | Myrtle Beach, SC</title>
-    <meta name="description" content="Visit The Wacky Rabbit in Myrtle Beach for unique souvenirs, home décor, and ready-to-go picnic packs. Located on Kings Highway.">
+    <title>ARK Tactical Inc | Military Surplus & Tactical Gear | Richmond, KY</title>
+    <meta name="description" content="Visit ARK Tactical Inc in Richmond, KY for military surplus, body armor, tactical gear, gun accessories and parts. Located on Geri Lane.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'ocean': {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            800: '#075985',
-                            900: '#0c4a6e',
+                        'tactical': {
+                            50: '#f4f4f4',
+                            100: '#e8e8e8',
+                            200: '#d4d4d4',
+                            300: '#b0b0b0',
+                            400: '#888888',
+                            500: '#6b6b6b',
+                            600: '#4a4a4a',
+                            700: '#3d3d3d',
+                            800: '#2a2a2a',
+                            900: '#1a1a1a',
+                            950: '#0d0d0d',
                         },
-                        'coral': {
-                            400: '#fb7185',
-                            500: '#f43f5e',
-                            600: '#e11d48',
+                        'olive': {
+                            400: '#8b9a46',
+                            500: '#6b7c32',
+                            600: '#4a5a1f',
+                            700: '#3d4a18',
+                            800: '#2d3811',
+                            900: '#1f260a',
                         },
-                        'sand': {
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
+                        'danger': {
+                            500: '#dc2626',
+                            600: '#b91c1c',
                         },
-                        'mint': {
-                            400: '#34d399',
-                            500: '#10b981',
+                        'tan': {
+                            200: '#d4c4a8',
+                            300: '#c4b494',
+                            400: '#b0a080',
+                            500: '#9c8c6c',
                         }
                     },
                     fontFamily: {
-                        'fun': ['Fredoka', 'sans-serif'],
-                        'body': ['Nunito', 'sans-serif'],
+                        'tactical': ['Black Ops One', 'cursive'],
+                        'body': ['Rajdhani', 'sans-serif'],
                     }
                 }
             }
@@ -50,501 +57,163 @@
     </script>
     <style>
         body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3811 100%);
+            background-attachment: fixed;
         }
-        .font-fun {
-            font-family: 'Fredoka', sans-serif;
+        .font-tactical {
+            font-family: 'Black Ops One', cursive;
         }
-        .wave-bg {
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230ea5e9' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            background-position: bottom;
-            background-repeat: no-repeat;
+        .camo-bg {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(107, 124, 50, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(61, 74, 24, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(45, 56, 17, 0.4) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
         }
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(107, 124, 50, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(107, 124, 50, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-        }
-        .bounce-slow {
-            animation: bounce 3s infinite;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #0ea5e9 0%, #f43f5e 50%, #fbbf24 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .tactical-border {
+            border: 2px solid #4a5a1f;
+            box-shadow: 
+                inset 0 0 0 1px rgba(139, 154, 70, 0.3),
+                0 0 20px rgba(0, 0, 0, 0.5);
         }
         .card-hover {
             transition: all 0.3s ease;
         }
         .card-hover:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: #8b9a46;
         }
-        .btn-bounce:hover {
-            animation: bounce 1s;
+        .btn-tactical {
+            background: linear-gradient(135deg, #4a5a1f 0%, #3d4a18 100%);
+            border: 2px solid #6b7c32;
+            position: relative;
+            overflow: hidden;
         }
-        .gallery-item {
-            transition: all 0.3s ease;
+        .btn-tactical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 154, 70, 0.4), transparent);
+            transition: left 0.5s;
         }
-        .gallery-item:hover {
-            transform: scale(1.05);
-            z-index: 10;
+        .btn-tactical:hover::before {
+            left: 100%;
         }
-        .pattern-bg {
-            background-image: radial-gradient(#0ea5e9 1px, transparent 1px);
-            background-size: 20px 20px;
+        .btn-tactical:hover {
+            border-color: #8b9a46;
+            box-shadow: 0 0 20px rgba(107, 124, 50, 0.4);
+        }
+        .target-reticle {
+            position: relative;
+        }
+        .target-reticle::before,
+        .target-reticle::after {
+            content: '';
+            position: absolute;
+            border: 2px solid #6b7c32;
+            width: 20px;
+            height: 20px;
+        }
+        .target-reticle::before {
+            top: -5px;
+            left: -5px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .target-reticle::after {
+            bottom: -5px;
+            right: -5px;
+            border-left: none;
+            border-top: none;
+        }
+        .scan-line {
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #8b9a46 0%, #c4b494 50%, #6b7c32 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .rating-stars {
+            color: #8b9a46;
         }
     </style>
 </head>
-<body class="text-gray-800 overflow-x-hidden">
+<body class="text-gray-200 overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-lg border-b-4 border-ocean-400">
+    <nav class="fixed w-full z-50 bg-tactical-950/95 backdrop-blur-md border-b-2 border-olive-600 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="#" class="flex items-center gap-2 group">
-                    <div class="w-10 h-10 bg-gradient-to-br from-coral-500 to-ocean-500 rounded-full flex items-center justify-center text-white font-fun text-xl group-hover:rotate-12 transition-transform">
-                        🐰
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-olive-600 to-tactical-800 rounded border-2 border-olive-400 flex items-center justify-center text-white font-tactical text-xl group-hover:scale-105 transition-transform shadow-lg">
+                        <i data-lucide="crosshair" class="w-6 h-6"></i>
                     </div>
-                    <span class="font-fun text-2xl font-bold gradient-text">The Wacky Rabbit</span>
+                    <div class="flex flex-col">
+                        <span class="font-tactical text-2xl tracking-wider gradient-text">ARK TACTICAL</span>
+                        <span class="text-xs text-olive-400 tracking-widest">INC</span>
+                    </div>
                 </a>
-                
+
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#about" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">About</a>
-                    <a href="#products" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Products</a>
-                    <a href="#gallery" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Gallery</a>
-                    <a href="#visit" class="font-fun text-lg text-gray-700 hover:text-coral-500 transition-colors">Visit Us</a>
-                    <a href="tel:8434970717" class="bg-coral-500 text-white px-6 py-2 rounded-full font-fun font-semibold hover:bg-coral-600 transition-all btn-bounce shadow-lg">
-                        Call Now
+                    <a href="#about" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">ABOUT</a>
+                    <a href="#products" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">PRODUCTS</a>
+                    <a href="#gallery" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">GALLERY</a>
+                    <a href="#visit" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">VISIT</a>
+                    <a href="tel:8593588082" class="btn-tactical text-white px-6 py-2 rounded font-tactical tracking-wider hover:bg-olive-600 transition-all shadow-lg">
+                        CALL NOW
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobileBtn" class="md:hidden p-2 rounded-lg bg-ocean-100 text-ocean-600">
+                <button id="mobileBtn" class="md:hidden p-2 rounded border border-olive-600 text-olive-400 hover:bg-olive-900/50">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-100">
+        <div id="mobileMenu" class="hidden md:hidden bg-tactical-950 border-t border-olive-800">
             <div class="px-4 py-6 space-y-4">
-                <a href="#about" class="block font-fun text-xl text-gray-700 hover:text-coral-500">About</a>
-                <a href="#products" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Products</a>
-                <a href="#gallery" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Gallery</a>
-                <a href="#visit" class="block font-fun text-xl text-gray-700 hover:text-coral-500">Visit Us</a>
-                <a href="tel:8434970717" class="block w-full text-center bg-coral-500 text-white py-3 rounded-full font-fun font-bold">Call (843) 497-0717</a>
+                <a href="#about" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">ABOUT</a>
+                <a href="#products" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">PRODUCTS</a>
+                <a href="#gallery" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">GALLERY</a>
+                <a href="#visit" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">VISIT US</a>
+                <a href="tel:8593588082" class="block w-full text-center btn-tactical text-white py-3 rounded font-tactical font-bold">CALL (859) 358-8082</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 wave-bg opacity-50"></div>
-        <div class="absolute top-20 right-0 w-64 h-64 bg-coral-400/20 rounded-full blur-3xl float-animation"></div>
-        <div class="absolute bottom-20 left-0 w-96 h-96 bg-ocean-400/20 rounded-full blur-3xl float-animation" style="animation-delay: 2s;"></div>
-        
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden camo-bg">
+        <!-- Tactical Grid Overlay -->
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left space-y-6">
-                    <div class="inline-block bg-sand-200 text-ocean-800 px-4 py-1 rounded-full font-fun text-sm font-bold mb-4 animate-pulse">
-                        🏖️ Myrtle Beach's Favorite Gift Shop
+                    <div class="inline-block bg-olive-900/80 border border-olive-500 text-olive-300 px-4 py-2 rounded font-body text-sm font-bold tracking-widest">
+                        <i data-lucide="shield" class="w-4 h-4 inline mr-2"></i>ARMY & NAVY SURPLUS • RICHMOND, KY
                     </div>
-                    <h1 class="font-fun text-5xl md:text-7xl font-bold leading-tight">
-                        The <span class="text-coral-500 inline-block hover:scale-110 transition-transform cursor-pointer">Wacky</span> 
-                        <span class="text-ocean-600 inline-block hover:scale-110 transition-transform cursor-pointer delay-100">Rabbit</span>
+                    <h1 class="font-tactical text-5xl md:text-7xl font-bold leading-tight tracking-wider">
+                        <span class="text-olive-500">ARK</span> 
+                        <span class="text-tan-300">TACTICAL</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-gray-600 font-fun max-w-lg mx-auto lg:mx-0">
-                        Fun Souvenirs & Unique Home Goods in Myrtle Beach
-                    </p>
-                    <p class="text-gray-600 max-w-md mx-auto lg:mx-0">
-                        Discover treasures, beach essentials, and perfect gifts at our cozy shop on Kings Highway!
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                        <a href="tel:8434970717" class="bg-gradient-to-r from-coral-500 to-coral-600 text-white px-8 py-4 rounded-full font-fun font-bold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-                            <i data-lucide="phone" class="w-5 h-5"></i>
-                            Call Now
-                        </a>
-                        <a href="https://maps.google.com/?q=7702+N+Kings+Hwy+Myrtle+Beach+SC+29572" target="_blank" class="bg-white text-ocean-600 border-4 border-ocean-400 px-8 py-4 rounded-full font-fun font-bold text-lg shadow-lg hover:bg-ocean-50 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-                            <i data-lucide="map-pin" class="w-5 h-5"></i>
-                            Get Directions
-                        </a>
-                    </div>
-
-                    <div class="flex items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-500">
-                        <div class="flex items-center gap-1">
-                            <i data-lucide="star" class="w-5 h-5 text-sand-400 fill-sand-400"></i>
-                            <span class="font-bold">4.8</span>
-                            <span>Rating</span>
-                        </div>
-                        <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-                        <span>Open Today 10 AM - 6 PM</span>
-                    </div>
-                </div>
-
-                <div class="relative">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="The Wacky Rabbit Storefront" class="w-full h-[500px] object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-4 py-2 rounded-full font-fun text-sm font-bold text-ocean-800">
-                            📍 7702 N Kings Hwy
-                        </div>
-                    </div>
-                    <!-- Floating badges -->
-                    <div class="absolute -top-6 -right-6 bg-sand-300 text-ocean-900 p-4 rounded-2xl shadow-xl float-animation font-fun font-bold text-center hidden md:block">
-                        <div class="text-2xl">🎁</div>
-                        <div class="text-xs">Unique<br>Gifts</div>
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 bg-mint-400 text-white p-4 rounded-2xl shadow-xl float-animation font-fun font-bold text-center hidden md:block" style="animation-delay: 1s;">
-                        <div class="text-2xl">🏖️</div>
-                        <div class="text-xs">Beach<br>Ready</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-ocean-50 to-transparent"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">Welcome to Our Shop! 🐰</h2>
-                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        The Wacky Rabbit is your friendly neighborhood gift shop in the heart of Myrtle Beach! We're a local treasure trove filled with <span class="text-coral-500 font-bold">unique souvenirs</span>, charming <span class="text-ocean-600 font-bold">home décor</span>, and practical <span class="text-sand-500 font-bold">picnic packs</span> perfect for your beach adventures.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Whether you're a tourist looking for the perfect memento or a local searching for that special something, our cozy shop offers a carefully curated selection of items that bring joy and functionality together.
-                    </p>
-                    <div class="grid grid-cols-3 gap-4 pt-4">
-                        <div class="text-center p-4 bg-ocean-50 rounded-2xl">
-                            <div class="text-3xl mb-2">🎨</div>
-                            <div class="font-fun font-bold text-ocean-800">Unique</div>
-                        </div>
-                        <div class="text-center p-4 bg-coral-50 rounded-2xl">
-                            <div class="text-3xl mb-2">❤️</div>
-                            <div class="font-fun font-bold text-coral-800">Local</div>
-                        </div>
-                        <div class="text-center p-4 bg-sand-100 rounded-2xl">
-                            <div class="text-3xl mb-2">☀️</div>
-                            <div class="font-fun font-bold text-yellow-800">Beachy</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Store Interior with Stuffed Animals" class="rounded-2xl shadow-lg w-full h-48 object-cover transform hover:scale-105 transition-transform">
-                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/c47c3c9c347eae189aea211f51be66cc29fa3dc4.jpg" alt="Picnic Packs and Bags" class="rounded-2xl shadow-lg w-full h-48 object-cover transform hover:scale-105 transition-transform mt-8">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ocean-50 to-white pattern-bg">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">What We Offer 🛍️</h2>
-                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">From beach essentials to home treasures, find exactly what you need for your Myrtle Beach experience</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Souvenirs -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-ocean-100">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e9cfae5d465fec3fc647c94cbdb30c6b83083f76.jpg" alt="Beach Souvenirs and Decor" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-coral-500 text-white px-3 py-1 rounded-full font-fun text-sm font-bold">
-                            Popular!
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🐚</span>
-                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Souvenirs</h3>
-                        </div>
-                        <p class="text-gray-600 mb-4">Beach-themed keepsakes, local crafts, and memorable gifts to remember your Myrtle Beach vacation.</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Beach decor items</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Local artisan goods</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Vacation mementos</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Home Goods -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-coral-100">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/52e4986903eb839ccbd61e869a96b42c612e5fbd.jpg" alt="Home Decor and Gifts" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🏠</span>
-                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Home Goods</h3>
-                        </div>
-                        <p class="text-gray-600 mb-4">Beautiful home décor, decorative items, and unique furnishings to add coastal charm to any space.</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Coastal decorations</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Candles & fragrances</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Wall art & clocks</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Picnic Packs -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border-4 border-sand-200">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/85b1c3528d8b468279ac26360516401f1aecca19.jpeg" alt="Beach Picnic Setup" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🧺</span>
-                            <h3 class="font-fun text-2xl font-bold text-ocean-900">Picnic Packs</h3>
-                        </div>
-                        <p class="text-gray-600 mb-4">Ready-to-go beach picnic sets, coolers, and bags perfect for your day in the sand and sun.</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Insulated coolers</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Beach bags & totes</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-500"></i> Picnic accessories</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-fun text-4xl md:text-5xl font-bold text-ocean-900 mb-4">Photo Gallery 📸</h2>
-                <div class="w-24 h-2 bg-gradient-to-r from-coral-500 to-sand-400 mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-600">Take a peek inside The Wacky Rabbit!</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/8226c8b9ac7163a21c00819aac756030a005dffa.jpg" alt="Storefront" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Our Storefront</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/69206d4def2dff2260b3efce07b61dc49ff0566e.jpg" alt="Stuffed Animals Display" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Cuddly Friends</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/c47c3c9c347eae189aea211f51be66cc29fa3dc4.jpg" alt="Picnic Bags" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Beach Gear</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/bloximages.newyork1.vip.townnews.com/52e4986903eb839ccbd61e869a96b42c612e5fbd.jpg" alt="Home Decor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Home Decor</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group md:col-span-2">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/e86f6710f6fad36460bb9a5ce0a5744cad7adced.jpg" alt="Beach Bunny" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Beach Vibes</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer group md:col-span-2">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/644dba20f5432d91b6b65fc0fce0104788f57c66.jpg" alt="Crab Clock" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-white font-fun font-bold">Coastal Time</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visit Us / Store Info -->
-    <section id="visit" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ocean-600 to-ocean-800 text-white relative overflow-hidden">
-        <!-- Decorative waves -->
-        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none">
-            <svg class="relative block w-full h-12" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
-            </svg>
-        </div>
-
-        <div class="max-w-6xl mx-auto relative z-10 pt-12">
-            <div class="text-center mb-12">
-                <h2 class="font-fun text-4xl md:text-5xl font-bold mb-4">Visit Us Today! 🐰</h2>
-                <div class="w-24 h-2 bg-sand-400 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Info Card -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border-2 border-white/20">
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-coral-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-fun text-xl font-bold mb-1">Address</h3>
-                                <p class="text-ocean-100">7702 N Kings Hwy<br>Myrtle Beach, SC 29572</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-sand-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="phone" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-fun text-xl font-bold mb-1">Phone</h3>
-                                <a href="tel:8434970717" class="text-ocean-100 hover:text-white transition-colors text-lg">(843) 497-0717</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-mint-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="clock" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-fun text-xl font-bold mb-2">Store Hours</h3>
-                                <div class="grid grid-cols-2 gap-2 text-sm text-ocean-100">
-                                    <div class="flex justify-between"><span>Monday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Tuesday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Wednesday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Thursday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Friday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Saturday:</span> <span>10 AM - 6 PM</span></div>
-                                    <div class="flex justify-between text-coral-300 col-span-2"><span>Sunday:</span> <span>Closed</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                        <a href="https://maps.google.com/?q=7702+N+Kings+Hwy+Myrtle+Beach+SC+29572" target="_blank" class="flex-1 bg-white text-ocean-800 py-3 rounded-full font-fun font-bold text-center hover:bg-sand-200 transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="navigation" class="w-5 h-5"></i>
-                            Get Directions
-                        </a>
-                        <a href="tel:8434970717" class="flex-1 bg-coral-500 text-white py-3 rounded-full font-fun font-bold text-center hover:bg-coral-600 transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="phone-call" class="w-5 h-5"></i>
-                            Call Now
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Map Placeholder / Visual -->
-                <div class="relative">
-                    <div class="bg-white rounded-3xl p-4 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                        <div class="bg-ocean-100 rounded-2xl h-80 flex items-center justify-center relative overflow-hidden">
-                            <img src="https://kimi-web-img.moonshot.cn/img/www.myrtlebeach.com/0653119c53ed34e8f9da0281cd01ad7338fcb06e.jpg" alt="Myrtle Beach Ocean View" class="absolute inset-0 w-full h-full object-cover opacity-50">
-                            <div class="relative z-10 text-center p-6">
-                                <div class="w-20 h-20 bg-coral-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg bounce-slow">
-                                    <span class="text-4xl">🐰</span>
-                                </div>
-                                <h3 class="font-fun text-2xl font-bold text-ocean-900 mb-2">Find Us on Kings Hwy!</h3>
-                                <p class="text-ocean-700">Located in the heart of Myrtle Beach shopping district</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Decorative elements -->
-                    <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-sand-400/30 rounded-full blur-3xl"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-ocean-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-3xl">🐰</span>
-                        <span class="font-fun text-2xl font-bold">The Wacky Rabbit</span>
-                    </div>
-                    <p class="text-ocean-200 text-sm">Your favorite local gift shop in Myrtle Beach, SC. Offering unique souvenirs, home goods, and beach essentials since 2014.</p>
-                </div>
-                <div>
-                    <h4 class="font-fun font-bold text-lg mb-4 text-sand-400">Quick Links</h4>
-                    <ul class="space-y-2 text-sm text-ocean-200">
-                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#products" class="hover:text-white transition-colors">Our Products</a></li>
-                        <li><a href="#gallery" class="hover:text-white transition-colors">Photo Gallery</a></li>
-                        <li><a href="#visit" class="hover:text-white transition-colors">Visit Us</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-fun font-bold text-lg mb-4 text-sand-400">Contact</h4>
-                    <ul class="space-y-2 text-sm text-ocean-200">
-                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> 7702 N Kings Hwy, Myrtle Beach, SC</li>
-                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> (843) 497-0717</li>
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Open Tue-Sat 10AM-6PM</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-ocean-800 pt-8 text-center text-sm text-ocean-400">
-                <p>&copy; 2024 The Wacky Rabbit. All rights reserved. | Myrtle Beach, SC</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Mobile menu toggle
-        const mobileBtn = document.getElementById('mobileBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to navbar
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('shadow-xl');
-            } else {
-                nav.classList.remove('shadow-xl');
-            }
-        });
-    </script>
-</body>
-</html>
+                    <p class="text-xl md:text<response clipped><NOTE>Result is longer than **10000 characters**, will be **truncated**.</NOTE>
