@@ -153,9 +153,127 @@
         .rating-stars {
             color: #8b9a46;
         }
+        
+        /* Pistol Tracking Animation Styles */
+        .pistol-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 200px;
+            height: 200px;
+            z-index: 40;
+            background: rgba(13, 13, 13, 0.9);
+            border: 2px solid #4a5a1f;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .pistol-container {
+                display: block;
+            }
+        }
+        
+        .pistol-box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: crosshair;
+        }
+        
+        .pistol-image {
+            position: absolute;
+            width: 120px;
+            height: auto;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+        
+        .crosshair-overlay {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+        
+        .crosshair-overlay::before,
+        .crosshair-overlay::after {
+            content: '';
+            position: absolute;
+            background: rgba(139, 154, 70, 0.8);
+        }
+        
+        .crosshair-overlay::before {
+            width: 2px;
+            height: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .crosshair-overlay::after {
+            width: 40px;
+            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .pistol-label {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Black Ops One', cursive;
+            font-size: 10px;
+            color: #8b9a46;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #4a5a1f;
+        }
+        
+        .coordinates {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-family: 'Rajdhani', monospace;
+            font-size: 10px;
+            color: #6b7c32;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        /* Gallery Image Hover Effects */
+        .gallery-img {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
     </style>
 </head>
 <body class="text-gray-200 overflow-x-hidden">
+
+    <!-- Pistol Tracking Widget -->
+    <div class="pistol-container">
+        <div class="pistol-box" id="pistolBox">
+            <div class="coordinates" id="coords">X: 0 | Y: 0</div>
+            <img src="https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/aea6ad8093f70815823b5602ed7bc0c1690e5441.png" 
+                 alt="Tactical Pistol" 
+                 class="pistol-image" 
+                 id="pistolImg"
+                 style="left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg);">
+            <div class="crosshair-overlay" id="crosshair" style="left: 50%; top: 50%;"></div>
+            <div class="pistol-label">Tactical Tracker</div>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-tactical-950/95 backdrop-blur-md border-b-2 border-olive-600 shadow-2xl">
@@ -234,7 +352,7 @@
                         </a>
                     </div>
 
-                    <div class="flex items-center justify-center lg:justify-start gap-6 pt-4 text-sm">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm">
                         <div class="flex items-center gap-2 bg-tactical-800/50 px-4 py-2 rounded border border-olive-700">
                             <i data-lucide="star" class="w-5 h-5 text-olive-400 fill-olive-400"></i>
                             <span class="font-bold text-olive-300">5.0</span>
@@ -242,26 +360,19 @@
                         </div>
                         <div class="flex items-center gap-2 bg-tactical-800/50 px-4 py-2 rounded border border-olive-700">
                             <i data-lucide="clock" class="w-5 h-5 text-olive-400"></i>
-                            <span class="text-gray-400">Open Today 3:30 PM - 6 PM</span>
+                            <span class="text-gray-400">Open Today 3:00 PM - 6 PM</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="relative">
                     <div class="relative rounded-lg overflow-hidden shadow-2xl tactical-border transform hover:scale-[1.02] transition-transform duration-500">
-                        <div class="bg-gradient-to-br from-tactical-800 to-tactical-900 h-[500px] flex items-center justify-center relative">
-                            <div class="absolute inset-0 grid-pattern opacity-20"></div>
-                            <div class="text-center p-8 relative z-10">
-                                <div class="w-32 h-32 bg-olive-700/30 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-olive-500">
-                                    <i data-lucide="shield-check" class="w-16 h-16 text-olive-400"></i>
-                                </div>
-                                <h3 class="font-tactical text-3xl text-olive-300 mb-2">TACTICAL GEAR</h3>
-                                <p class="text-gray-400 font-body">Professional Equipment</p>
-                            </div>
-                            <!-- Scanning Line Effect -->
-                            <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                                <div class="w-full h-1 bg-gradient-to-r from-transparent via-olive-500/50 to-transparent scan-line"></div>
-                            </div>
+                        <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
+                             alt="ARK Tactical Store Interior" 
+                             class="w-full h-[500px] object-cover">
+                        <!-- Scanning Line Effect -->
+                        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                            <div class="w-full h-1 bg-gradient-to-r from-transparent via-olive-500/50 to-transparent scan-line"></div>
                         </div>
                         <div class="absolute bottom-4 left-4 bg-tactical-950/90 backdrop-blur border border-olive-600 px-4 py-2 rounded font-body text-sm font-bold text-olive-300">
                             <i data-lucide="map-pin" class="w-4 h-4 inline mr-2"></i>305 Geri Ln STE B
@@ -315,11 +426,15 @@
                 </div>
                 <div class="relative">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-tactical-800 border border-olive-700 rounded h-48 flex items-center justify-center">
-                            <i data-lucide="package" class="w-16 h-16 text-olive-600"></i>
+                        <div class="relative overflow-hidden rounded border-2 border-olive-700 aspect-[4/3]">
+                            <img src="https://kimi-web-img.moonshot.cn/img/nebula.wsimg.com/553b1f3122a5b3093f8e5f7cdd66f9fc8ce2f335" 
+                                 alt="ARK Tactical Contact" 
+                                 class="w-full h-full object-cover gallery-img">
                         </div>
-                        <div class="bg-tactical-800 border border-olive-700 rounded h-48 flex items-center justify-center mt-8">
-                            <i data-lucide="shield" class="w-16 h-16 text-olive-600"></i>
+                        <div class="relative overflow-hidden rounded border-2 border-olive-700 aspect-[4/3] mt-8">
+                            <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/af99997ca3291c934a47ceb86eb2009b6e2fa1de.jpg" 
+                                 alt="Military Surplus Richmond KY" 
+                                 class="w-full h-full object-cover gallery-img">
                         </div>
                     </div>
                 </div>
@@ -340,8 +455,10 @@
                 <!-- Military Surplus -->
                 <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
                     <div class="h-64 bg-gradient-to-br from-olive-900 to-tactical-800 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="backpack" class="w-24 h-24 text-olive-500/50"></i>
-                        <div class="absolute top-4 right-4 bg-danger-600 text-white px-3 py-1 rounded font-tactical text-sm font-bold tracking-wider">
+                        <img src="https://kimi-web-img.moonshot.cn/img/img1.wsimg.com/77c4babd4bd049d54d8e4917a298ccb28a010482" 
+                             alt="Military Surplus Gear" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute top-4 right-4 bg-danger-600 text-white px-3 py-1 rounded font-tactical text-sm font-bold tracking-wider z-10">
                             IN STOCK
                         </div>
                     </div>
@@ -362,7 +479,9 @@
                 <!-- Body Armor -->
                 <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
                     <div class="h-64 bg-gradient-to-br from-tactical-800 to-tactical-900 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="shield" class="w-24 h-24 text-olive-500/50"></i>
+                        <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/d73cdbeb4f85dd576258166cdbcdfe1da834ade5.jpg" 
+                             alt="Body Armor" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
@@ -381,7 +500,9 @@
                 <!-- Tactical Gear -->
                 <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
                     <div class="h-64 bg-gradient-to-br from-tan-900/30 to-tactical-800 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="crosshair" class="w-24 h-24 text-tan-500/50"></i>
+                        <img src="https://kimi-web-img.moonshot.cn/img/static.where-e.com/807ebf86501b6fe9778a0323ead068d3cf974da5.jpg" 
+                             alt="ARK Tactical Storefront" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
@@ -410,50 +531,50 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-12 h-12 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/static.where-e.com/807ebf86501b6fe9778a0323ead068d3cf974da5.jpg" 
+                         alt="ARK Tactical Storefront" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">STOREFRONT</span>
                     </div>
                 </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-12 h-12 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
+                         alt="Store Interior" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">SURPLUS GEAR</span>
                     </div>
                 </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-12 h-12 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/af99997ca3291c934a47ceb86eb2009b6e2fa1de.jpg" 
+                         alt="Military Gear Display" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">BODY ARMOR</span>
                     </div>
                 </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-12 h-12 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
+                    <img src="https://kimi-web-img.moonshot.cn/img/nebula.wsimg.com/553b1f3122a5b3093f8e5f7cdd66f9fc8ce2f335" 
+                         alt="Tactical Equipment" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">TACTICAL GEAR</span>
                     </div>
                 </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2 bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-16 h-16 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2">
+                    <img src="https://kimi-web-img.moonshot.cn/img/img1.wsimg.com/77c4babd4bd049d54d8e4917a298ccb28a010482" 
+                         alt="Gun Accessories" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">GUN ACCESSORIES</span>
                     </div>
                 </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2 bg-tactical-800">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i data-lucide="image" class="w-16 h-16 text-olive-600 group-hover:text-olive-400 transition-colors"></i>
-                    </div>
+                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/d73cdbeb4f85dd576258166cdbcdfe1da834ade5.jpg" 
+                         alt="Equipment Display" 
+                         class="w-full h-full object-cover gallery-img">
                     <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <span class="text-olive-300 font-tactical font-bold tracking-wider">EQUIPMENT</span>
                     </div>
@@ -501,11 +622,11 @@
                             <div class="flex-1">
                                 <h3 class="font-tactical text-xl font-bold mb-2 text-olive-300 tracking-wider">OPERATIONAL HOURS</h3>
                                 <div class="grid grid-cols-2 gap-2 text-sm text-gray-500 font-body">
-                                    <div class="flex justify-between"><span>Monday:</span> <span class="text-olive-400">3:30 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Tuesday:</span> <span class="text-olive-400">3:30 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Wednesday:</span> <span class="text-olive-400">3:30 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Thursday:</span> <span class="text-olive-400">3:30 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Friday:</span> <span class="text-olive-400">3:30 PM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Monday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Tuesday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Wednesday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Thursday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
+                                    <div class="flex justify-between"><span>Friday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
                                     <div class="flex justify-between"><span>Saturday:</span> <span class="text-olive-400">11 AM - 6 PM</span></div>
                                     <div class="flex justify-between text-danger-500 col-span-2 font-bold"><span>Sunday:</span> <span>CLOSED</span></div>
                                 </div>
@@ -529,6 +650,9 @@
                 <div class="relative">
                     <div class="bg-tactical-950 rounded-lg p-4 shadow-2xl tactical-border transform hover:scale-[1.02] transition-transform duration-500">
                         <div class="bg-tactical-900 rounded h-80 flex items-center justify-center relative overflow-hidden">
+                            <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
+                                 alt="Store Location Map" 
+                                 class="absolute inset-0 w-full h-full object-cover opacity-40">
                             <div class="absolute inset-0 grid-pattern opacity-20"></div>
                             <div class="relative z-10 text-center p-6">
                                 <div class="w-20 h-20 bg-olive-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-olive-400 shadow-lg">
@@ -575,7 +699,7 @@
                     <ul class="space-y-2 text-sm text-gray-500 font-body">
                         <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-olive-600"></i> 305 Geri Ln STE B, Richmond, KY</li>
                         <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-olive-600"></i> (859) 358-8082</li>
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-olive-600"></i> Mon-Fri 3:30PM-6PM, Sat 11AM-6PM</li>
+                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-olive-600"></i> Mon-Fri 3PM-6PM, Sat 11AM-6PM</li>
                     </ul>
                 </div>
             </div>
@@ -626,6 +750,79 @@
             } else {
                 nav.classList.remove('shadow-2xl');
             }
+        });
+
+        // Pistol Tracking Animation
+        const pistolBox = document.getElementById('pistolBox');
+        const pistolImg = document.getElementById('pistolImg');
+        const crosshair = document.getElementById('crosshair');
+        const coords = document.getElementById('coords');
+
+        pistolBox.addEventListener('mousemove', (e) => {
+            const rect = pistolBox.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Calculate percentage positions
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            
+            // Update coordinates display
+            coords.textContent = `X: ${Math.round(xPercent)} | Y: ${Math.round(yPercent)}`;
+            
+            // Move crosshair
+            crosshair.style.left = x + 'px';
+            crosshair.style.top = y + 'px';
+            
+            // Calculate rotation based on position (pistol follows with slight delay effect)
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const angleX = (x - centerX) / centerX * 20; // Max 20 degrees
+            const angleY = (y - centerY) / centerY * 15; // Max 15 degrees
+            
+            // Move pistol with smooth follow
+            const pistolX = 50 + (xPercent - 50) * 0.3; // Move 30% of cursor movement
+            const pistolY = 50 + (yPercent - 50) * 0.3;
+            
+            pistolImg.style.left = pistolX + '%';
+            pistolImg.style.top = pistolY + '%';
+            pistolImg.style.transform = `translate(-50%, -50%) rotate(${angleX}deg)`;
+        });
+
+        pistolBox.addEventListener('mouseleave', () => {
+            // Reset to center when mouse leaves
+            pistolImg.style.left = '50%';
+            pistolImg.style.top = '50%';
+            pistolImg.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+            crosshair.style.left = '50%';
+            crosshair.style.top = '50%';
+            coords.textContent = 'X: 50 | Y: 50';
+        });
+
+        // Touch support for mobile (if visible on tablets)
+        pistolBox.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const rect = pistolBox.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            const xPercent = (x / rect.width) * 100;
+            const yPercent = (y / rect.height) * 100;
+            
+            coords.textContent = `X: ${Math.round(xPercent)} | Y: ${Math.round(yPercent)}`;
+            crosshair.style.left = x + 'px';
+            crosshair.style.top = y + 'px';
+            
+            const centerX = rect.width / 2;
+            const angleX = (x - centerX) / centerX * 20;
+            
+            const pistolX = 50 + (xPercent - 50) * 0.3;
+            const pistolY = 50 + (yPercent - 50) * 0.3;
+            
+            pistolImg.style.left = pistolX + '%';
+            pistolImg.style.top = pistolY + '%';
+            pistolImg.style.transform = `translate(-50%, -50%) rotate(${angleX}deg)`;
         });
     </script>
 </body>
