@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { SCENE } from './constants';
 
 export class Scene3D {
@@ -14,6 +15,9 @@ export class Scene3D {
   private cameraTheta = 0;  // horizontal angle
   private cameraPhi = Math.PI / 2;  // vertical angle (start looking straight)
   private cameraTarget = new THREE.Vector3(0, 0, 0);
+
+  // Model
+  private model: THREE.Group | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
     // Create scene
@@ -36,6 +40,7 @@ export class Scene3D {
     });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setClearColor(0x000000, 0); // Transparent background
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -205,5 +210,45 @@ export class Scene3D {
     this.cameraPhi = Math.PI / 2;
     this.cameraTarget.set(0, 0, 0);
     this.updateCameraPosition();
+  }
+
+  // Load GLB model
+  async loadModel(url: string): Promise<void> {
+    const loader = new GLTFLoader();
+    
+    return new Promise((resolve, reject) => {
+      loader.load(
+        url,
+        (gltf) => {
+          // Remove existing model if any
+          if (this.model) {
+            this.scene.remove(this.model);
+          }
+          
+          this.model = gltf.scene;
+          
+          // Center the model
+          const box = new THREE.Box3().setFromObject(this.model);
+          const center = box.getCenter(new THREE.Vector3());
+          this.model.position.sub(center);
+          
+          // Scale to fit
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 5 / maxDim;
+          this.model.scale.setScalar(scale);
+          
+          this.scene.add(this.model);
+          resolve();
+        },
+        (progress) => {
+          console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+        },
+        (error) => {
+          console.error('Error loading model:', error);
+          reject(error);
+        }
+      );
+    });
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "air-canvas",
+  "name": "caddybox",
   "version": "1.0.0",
-  "description": "Gesture-based air drawing that inflates into 3D balloon objects",
+  "description": "CADDYBOX 3D model viewer with touch and mouse controls",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,11 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mediapipe/camera_utils": "^0.3.1675466862",
-    "@mediapipe/drawing_utils": "^0.3.1675466124",
-    "@mediapipe/hands": "^0.4.1675469240",
-    "gsap": "^3.12.4",
-    "peerjs": "^1.5.5",
     "three": "^0.160.0"
   },
   "devDependencies": {

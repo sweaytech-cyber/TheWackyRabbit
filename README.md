@@ -1,23 +1,49 @@
-# Air Canvas
+# CADDYBOX
 
-A browser-based gesture drawing experience where you draw shapes in the air using hand gestures via your webcam. Completed drawings inflate into soft, 3D balloon-like objects that float in a shared scene.
-
-> **Disclaimer**: This project was built in about 6 hours, so expect bugs! If you encounter any issues or have suggestions, feel free to open an issue or leave feedback. I'd love to hear what you think! Also, feel free to fork this project and make your own version of it.
-
-## Recent Updates
-
-- **Draggable Camera Preview** - Move the camera preview anywhere on screen so it doesn't block your creations. Double-click to reset position.
-- **Improved Line Smoothing** - Added jitter filter to eliminate hand vibration for smoother drawing
-- **Better Hand Detection** - Switched to higher accuracy model for more reliable tracking
-- **Clear All Button** - Replaced fist gesture with a dedicated button for easier clearing
-- **Expandable Preview** - Click the expand button on camera preview to enlarge it
+A browser-based 3D model viewer with smooth touch and mouse controls. Features pinch-to-zoom, drag-to-rotate, and scroll wheel zoom for an intuitive viewing experience.
 
 ## Features
 
-- **Gesture-Based Drawing** - Point your index finger to draw in the air
-- **3D Balloon Inflation** - Completed shapes transform into puffy, floating 3D objects
-- **Real-Time Hand Tracking** - Powered by MediaPipe for responsive hand detection
-- **Color Palette** - Choose from 10 pastel colors for your creations
+- **Touch Controls**:
+  - Pinch with two fingers to zoom in/out
+  - Drag with one finger to rotate the model
+- **Mouse Controls**:
+  - Drag to rotate the camera around the model
+  - Scroll wheel to zoom in/out
+- **Responsive Design** - Works on desktop and mobile devices
+- **Transparent Background** - Model appears to float in space
+- **Smooth Animations** - Fluid camera movements and interactions
+
+## Controls
+
+### Desktop
+- **Mouse Drag**: Rotate camera around model
+- **Scroll Wheel**: Zoom in/out
+
+### Mobile/Touch
+- **One Finger Drag**: Rotate camera around model
+- **Two Finger Pinch**: Zoom in/out
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Place your GLB model file in the root directory (currently loads `caddybox.glb`)
+4. Run development server: `npm run dev`
+5. Open http://localhost:5173 in your browser
+
+## Building for Production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Technologies Used
+
+- **Three.js** - 3D rendering and GLTF model loading
+- **TypeScript** - Type-safe development
+- **Vite** - Fast development and building
 - **Interactive Objects** - Poke, grab, and rotate your balloon creations
 - **Draggable Camera Preview** - See your hand tracking skeleton and move it anywhere
 - **Mouse/Touch Controls** - Orbit and zoom the 3D scene
