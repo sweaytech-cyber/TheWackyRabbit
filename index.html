@@ -1,829 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARK Tactical Inc | Military Surplus & Tactical Gear | Richmond, KY</title>
-    <meta name="description" content="Visit ARK Tactical Inc in Richmond, KY for military surplus, body armor, tactical gear, gun accessories and parts. Located on Geri Lane.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tactical': {
-                            50: '#f4f4f4',
-                            100: '#e8e8e8',
-                            200: '#d4d4d4',
-                            300: '#b0b0b0',
-                            400: '#888888',
-                            500: '#6b6b6b',
-                            600: '#4a4a4a',
-                            700: '#3d3d3d',
-                            800: '#2a2a2a',
-                            900: '#1a1a1a',
-                            950: '#0d0d0d',
-                        },
-                        'olive': {
-                            400: '#8b9a46',
-                            500: '#6b7c32',
-                            600: '#4a5a1f',
-                            700: '#3d4a18',
-                            800: '#2d3811',
-                            900: '#1f260a',
-                        },
-                        'danger': {
-                            500: '#dc2626',
-                            600: '#b91c1c',
-                        },
-                        'tan': {
-                            200: '#d4c4a8',
-                            300: '#c4b494',
-                            400: '#b0a080',
-                            500: '#9c8c6c',
-                        }
-                    },
-                    fontFamily: {
-                        'tactical': ['Black Ops One', 'cursive'],
-                        'body': ['Rajdhani', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d3811 100%);
-            background-attachment: fixed;
-        }
-        .font-tactical {
-            font-family: 'Black Ops One', cursive;
-        }
-        .camo-bg {
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(107, 124, 50, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(61, 74, 24, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(45, 56, 17, 0.4) 0%, transparent 50%),
-                linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-        }
-        .grid-pattern {
-            background-image: 
-                linear-gradient(rgba(107, 124, 50, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(107, 124, 50, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        .tactical-border {
-            border: 2px solid #4a5a1f;
-            box-shadow: 
-                inset 0 0 0 1px rgba(139, 154, 70, 0.3),
-                0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: #8b9a46;
-        }
-        .btn-tactical {
-            background: linear-gradient(135deg, #4a5a1f 0%, #3d4a18 100%);
-            border: 2px solid #6b7c32;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-tactical::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 154, 70, 0.4), transparent);
-            transition: left 0.5s;
-        }
-        .btn-tactical:hover::before {
-            left: 100%;
-        }
-        .btn-tactical:hover {
-            border-color: #8b9a46;
-            box-shadow: 0 0 20px rgba(107, 124, 50, 0.4);
-        }
-        .target-reticle {
-            position: relative;
-        }
-        .target-reticle::before,
-        .target-reticle::after {
-            content: '';
-            position: absolute;
-            border: 2px solid #6b7c32;
-            width: 20px;
-            height: 20px;
-        }
-        .target-reticle::before {
-            top: -5px;
-            left: -5px;
-            border-right: none;
-            border-bottom: none;
-        }
-        .target-reticle::after {
-            bottom: -5px;
-            right: -5px;
-            border-left: none;
-            border-top: none;
-        }
-        .scan-line {
-            animation: scan 3s linear infinite;
-        }
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #8b9a46 0%, #c4b494 50%, #6b7c32 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .rating-stars {
-            color: #8b9a46;
-        }
-        
-        /* Pistol Tracking Animation Styles */
-        .pistol-container {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            width: 200px;
-            height: 200px;
-            z-index: 40;
-            background: rgba(13, 13, 13, 0.9);
-            border: 2px solid #4a5a1f;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            display: none;
-        }
-        
-        @media (min-width: 1024px) {
-            .pistol-container {
-                display: block;
-            }
-        }
-        
-        .pistol-box {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            cursor: crosshair;
-        }
-        
-        .pistol-image {
-            position: absolute;
-            width: 120px;
-            height: auto;
-            pointer-events: none;
-            transition: transform 0.1s ease-out;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-        }
-        
-        .crosshair-overlay {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-        }
-        
-        .crosshair-overlay::before,
-        .crosshair-overlay::after {
-            content: '';
-            position: absolute;
-            background: rgba(139, 154, 70, 0.8);
-        }
-        
-        .crosshair-overlay::before {
-            width: 2px;
-            height: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .crosshair-overlay::after {
-            width: 40px;
-            height: 2px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .pistol-label {
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Black Ops One', cursive;
-            font-size: 10px;
-            color: #8b9a46;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 8px;
-            border-radius: 4px;
-            border: 1px solid #4a5a1f;
-        }
-        
-        .coordinates {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            font-family: 'Rajdhani', monospace;
-            font-size: 10px;
-            color: #6b7c32;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 6px;
-            border-radius: 2px;
-        }
-
-        /* Gallery Image Hover Effects */
-        .gallery-img {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .gallery-img:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arm Motion Tracker</title>
+  <meta name="description" content="Real-time arm motion tracker using your webcam. Draw trails with your wrist movement." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="text-gray-200 overflow-x-hidden">
+<body>
+  <!-- Main Container -->
+  <div id="app">
 
-    <!-- Pistol Tracking Widget -->
-    <div class="pistol-container">
-        <div class="pistol-box" id="pistolBox">
-            <div class="coordinates" id="coords">X: 0 | Y: 0</div>
-            <img src="https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/aea6ad8093f70815823b5602ed7bc0c1690e5441.png" 
-                 alt="Tactical Pistol" 
-                 class="pistol-image" 
-                 id="pistolImg"
-                 style="left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg);">
-            <div class="crosshair-overlay" id="crosshair" style="left: 50%; top: 50%;"></div>
-            <div class="pistol-label">Tactical Tracker</div>
+    <!-- Header -->
+    <header id="header">
+      <div class="header-left">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="url(#grad1)" opacity="0.2"/>
+            <path d="M12 6v6l4 2" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round"/>
+            <defs><linearGradient id="grad1" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+          </svg>
         </div>
-    </div>
+        <h1>Arm Motion Tracker</h1>
+      </div>
+      <div class="header-right">
+        <span id="fps-display" class="badge">-- FPS</span>
+        <span id="status-badge" class="badge badge-inactive">Webcam Off</span>
+      </div>
+    </header>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-tactical-950/95 backdrop-blur-md border-b-2 border-olive-600 shadow-2xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 bg-gradient-to-br from-olive-600 to-tactical-800 rounded border-2 border-olive-400 flex items-center justify-center text-white font-tactical text-xl group-hover:scale-105 transition-transform shadow-lg">
-                        <i data-lucide="crosshair" class="w-6 h-6"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-tactical text-2xl tracking-wider gradient-text">ARK TACTICAL</span>
-                        <span class="text-xs text-olive-400 tracking-widest">INC</span>
-                    </div>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#about" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">ABOUT</a>
-                    <a href="#products" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">PRODUCTS</a>
-                    <a href="#gallery" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">GALLERY</a>
-                    <a href="#visit" class="font-body text-lg font-semibold text-gray-300 hover:text-olive-400 transition-colors tracking-wide">VISIT</a>
-                    <a href="tel:8593588082" class="btn-tactical text-white px-6 py-2 rounded font-tactical tracking-wider hover:bg-olive-600 transition-all shadow-lg">
-                        CALL NOW
-                    </a>
-                </div>
+    <!-- Canvas Area -->
+    <main id="main-area">
+      <!-- Hidden video element for webcam feed -->
+      <video id="webcam" autoplay playsinline style="display:none;"></video>
 
-                <!-- Mobile Menu Button -->
-                <button id="mobileBtn" class="md:hidden p-2 rounded border border-olive-600 text-olive-400 hover:bg-olive-900/50">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
+      <div id="canvas-wrapper">
+        <!-- Video feed canvas (bottom layer) -->
+        <canvas id="video-canvas"></canvas>
+        <!-- Drawing trail canvas (top layer) -->
+        <canvas id="drawing-canvas"></canvas>
+        <!-- Landmark overlay canvas -->
+        <canvas id="landmark-canvas"></canvas>
+
+        <!-- Start overlay -->
+        <div id="start-overlay">
+          <div class="start-content">
+            <div class="start-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="url(#startGrad)" stroke-width="1.5" opacity="0.5"/>
+                <path d="M15.5 12L10 15.5V8.5L15.5 12Z" fill="url(#startGrad)"/>
+                <defs><linearGradient id="startGrad" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+              </svg>
             </div>
+            <h2>Ready to Track</h2>
+            <p>Click the button below to start your webcam and begin tracking your arm movement.</p>
+            <button id="start-btn" onclick="startWebcam()">
+              <span class="btn-glow"></span>
+              Start Webcam
+            </button>
+          </div>
         </div>
+      </div>
+    </main>
 
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-tactical-950 border-t border-olive-800">
-            <div class="px-4 py-6 space-y-4">
-                <a href="#about" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">ABOUT</a>
-                <a href="#products" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">PRODUCTS</a>
-                <a href="#gallery" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">GALLERY</a>
-                <a href="#visit" class="block font-body text-xl font-semibold text-gray-300 hover:text-olive-400">VISIT US</a>
-                <a href="tel:8593588082" class="block w-full text-center btn-tactical text-white py-3 rounded font-tactical font-bold">CALL (859) 358-8082</a>
-            </div>
+    <!-- Controls Bar -->
+    <footer id="controls-bar">
+      <div class="control-group">
+        <label>Brush</label>
+        <div class="thickness-control">
+          <button id="thickness-down" onclick="changeThickness(-1)" title="Decrease thickness">−</button>
+          <span id="thickness-value">5</span>
+          <button id="thickness-up" onclick="changeThickness(1)" title="Increase thickness">+</button>
         </div>
-    </nav>
+      </div>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden camo-bg">
-        <!-- Tactical Grid Overlay -->
-        <div class="absolute inset-0 grid-pattern opacity-30"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left space-y-6">
-                    <div class="inline-block bg-olive-900/80 border border-olive-500 text-olive-300 px-4 py-2 rounded font-body text-sm font-bold tracking-widest">
-                        <i data-lucide="shield" class="w-4 h-4 inline mr-2"></i>ARMY & NAVY SURPLUS • RICHMOND, KY
-                    </div>
-                    <h1 class="font-tactical text-5xl md:text-7xl font-bold leading-tight tracking-wider">
-                        <span class="text-olive-500">ARK</span> 
-                        <span class="text-tan-300">TACTICAL</span>
-                    </h1>
-                    <p class="text-xl md:text-2xl text-gray-400 font-body font-semibold max-w-lg mx-auto lg:mx-0 tracking-wide">
-                        Military Surplus • Body Armor • Tactical Gear
-                    </p>
-                    <p class="text-gray-500 max-w-md mx-auto lg:mx-0 text-lg">
-                        Professional-grade equipment for military, law enforcement, and civilian tactical needs. Gun accessories, parts, and survival gear.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                        <a href="tel:8593588082" class="btn-tactical text-white px-8 py-4 rounded font-tactical text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 tracking-wider">
-                            <i data-lucide="phone" class="w-5 h-5"></i>
-                            CALL NOW
-                        </a>
-                        <a href="https://maps.google.com/?q=305+Geri+Ln+STE+B+Richmond+KY+40475" target="_blank" class="bg-tactical-800 text-olive-300 border-2 border-olive-600 px-8 py-4 rounded font-tactical text-lg shadow-lg hover:bg-tactical-700 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 tracking-wider">
-                            <i data-lucide="map-pin" class="w-5 h-5"></i>
-                            GET DIRECTIONS
-                        </a>
-                    </div>
+      <div class="control-group">
+        <label>Smoothing</label>
+        <input type="range" id="smoothing-slider" min="10" max="90" value="50" oninput="updateSmoothing(this.value)" />
+        <span id="smoothing-value" class="slider-val">0.50</span>
+      </div>
 
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm">
-                        <div class="flex items-center gap-2 bg-tactical-800/50 px-4 py-2 rounded border border-olive-700">
-                            <i data-lucide="star" class="w-5 h-5 text-olive-400 fill-olive-400"></i>
-                            <span class="font-bold text-olive-300">5.0</span>
-                            <span class="text-gray-400">Google Rating</span>
-                        </div>
-                        <div class="flex items-center gap-2 bg-tactical-800/50 px-4 py-2 rounded border border-olive-700">
-                            <i data-lucide="clock" class="w-5 h-5 text-olive-400"></i>
-                            <span class="text-gray-400">Open Today 3:00 PM - 6 PM</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="control-group">
+        <label>Hand</label>
+        <select id="hand-select" onchange="updateHand(this.value)">
+          <option value="right">Right</option>
+          <option value="left">Left</option>
+        </select>
+      </div>
 
-                <div class="relative">
-                    <div class="relative rounded-lg overflow-hidden shadow-2xl tactical-border transform hover:scale-[1.02] transition-transform duration-500">
-                        <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
-                             alt="ARK Tactical Store Interior" 
-                             class="w-full h-[500px] object-cover">
-                        <!-- Scanning Line Effect -->
-                        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                            <div class="w-full h-1 bg-gradient-to-r from-transparent via-olive-500/50 to-transparent scan-line"></div>
-                        </div>
-                        <div class="absolute bottom-4 left-4 bg-tactical-950/90 backdrop-blur border border-olive-600 px-4 py-2 rounded font-body text-sm font-bold text-olive-300">
-                            <i data-lucide="map-pin" class="w-4 h-4 inline mr-2"></i>305 Geri Ln STE B
-                        </div>
-                    </div>
-                    <!-- Tactical Badges -->
-                    <div class="absolute -top-6 -right-6 bg-olive-700 text-white p-4 rounded border-2 border-olive-400 shadow-xl font-tactical text-center hidden md:block">
-                        <div class="text-2xl">🎯</div>
-                        <div class="text-xs tracking-wider">PRECISION<br>GEAR</div>
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 bg-tactical-800 text-olive-300 p-4 rounded border-2 border-olive-600 shadow-xl font-tactical text-center hidden md:block">
-                        <div class="text-2xl">🛡️</div>
-                        <div class="text-xs tracking-wider">BODY<br>ARMOR</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="control-group">
+        <label>View</label>
+        <select id="view-select" onchange="updateView(this.value)">
+          <option value="overlay">Overlay</option>
+          <option value="black">Black BG</option>
+        </select>
+      </div>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-tactical-950 relative overflow-hidden">
-        <div class="absolute inset-0 grid-pattern opacity-10"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="font-tactical text-4xl md:text-5xl font-bold text-olive-400 mb-4 tracking-wider">MISSION BRIEFING</h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-olive-600 to-tan-400 mx-auto rounded-full"></div>
-            </div>
+      <div class="control-spacer"></div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <p class="text-lg text-gray-400 leading-relaxed font-body">
-                        ARK Tactical Inc is your <span class="text-olive-400 font-bold">tactical headquarters</span> in Richmond, Kentucky. We specialize in <span class="text-tan-300 font-bold">military surplus</span>, professional <span class="text-olive-400 font-bold">body armor</span>, and high-quality <span class="text-tan-300 font-bold">tactical gear</span> for military, law enforcement, and civilian applications.
-                    </p>
-                    <p class="text-lg text-gray-400 leading-relaxed font-body">
-                        Our inventory includes gun accessories, parts, survival equipment, and army & navy surplus items. Whether you're preparing for duty, outdoor adventures, or building your collection, we provide reliable gear you can trust.
-                    </p>
-                    <div class="grid grid-cols-3 gap-4 pt-4">
-                        <div class="text-center p-4 bg-tactical-900 border border-olive-700 rounded target-reticle">
-                            <div class="text-3xl mb-2">🎖️</div>
-                            <div class="font-tactical text-olive-400 text-sm tracking-wider">MILITARY<br>GRADE</div>
-                        </div>
-                        <div class="text-center p-4 bg-tactical-900 border border-olive-700 rounded target-reticle">
-                            <div class="text-3xl mb-2">🔫</div>
-                            <div class="font-tactical text-olive-400 text-sm tracking-wider">GUN<br>GEAR</div>
-                        </div>
-                        <div class="text-center p-4 bg-tactical-900 border border-olive-700 rounded target-reticle">
-                            <div class="text-3xl mb-2">🛡️</div>
-                            <div class="font-tactical text-olive-400 text-sm tracking-wider">BODY<br>ARMOR</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="relative overflow-hidden rounded border-2 border-olive-700 aspect-[4/3]">
-                            <img src="https://kimi-web-img.moonshot.cn/img/nebula.wsimg.com/553b1f3122a5b3093f8e5f7cdd66f9fc8ce2f335" 
-                                 alt="ARK Tactical Contact" 
-                                 class="w-full h-full object-cover gallery-img">
-                        </div>
-                        <div class="relative overflow-hidden rounded border-2 border-olive-700 aspect-[4/3] mt-8">
-                            <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/af99997ca3291c934a47ceb86eb2009b6e2fa1de.jpg" 
-                                 alt="Military Surplus Richmond KY" 
-                                 class="w-full h-full object-cover gallery-img">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-20 px-4 sm:px-6 lg:px-8 bg-tactical-900 grid-pattern">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-tactical text-4xl md:text-5xl font-bold text-olive-400 mb-4 tracking-wider">ARSENAL</h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-olive-600 to-tan-400 mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-500 max-w-2xl mx-auto font-body text-lg">Professional tactical equipment and military surplus for every mission</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Military Surplus -->
-                <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
-                    <div class="h-64 bg-gradient-to-br from-olive-900 to-tactical-800 flex items-center justify-center relative overflow-hidden">
-                        <img src="https://kimi-web-img.moonshot.cn/img/img1.wsimg.com/77c4babd4bd049d54d8e4917a298ccb28a010482" 
-                             alt="Military Surplus Gear" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        <div class="absolute top-4 right-4 bg-danger-600 text-white px-3 py-1 rounded font-tactical text-sm font-bold tracking-wider z-10">
-                            IN STOCK
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🎖️</span>
-                            <h3 class="font-tactical text-2xl font-bold text-olive-400 tracking-wider">MILITARY SURPLUS</h3>
-                        </div>
-                        <p class="text-gray-500 mb-4 font-body">Authentic army & navy surplus including uniforms, packs, web gear, and field equipment.</p>
-                        <ul class="space-y-2 text-sm text-gray-600 font-body">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Uniforms & BDUs</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Rucksacks & packs</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Field gear & tools</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Body Armor -->
-                <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
-                    <div class="h-64 bg-gradient-to-br from-tactical-800 to-tactical-900 flex items-center justify-center relative overflow-hidden">
-                        <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/d73cdbeb4f85dd576258166cdbcdfe1da834ade5.jpg" 
-                             alt="Body Armor" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🛡️</span>
-                            <h3 class="font-tactical text-2xl font-bold text-olive-400 tracking-wider">BODY ARMOR</h3>
-                        </div>
-                        <p class="text-gray-500 mb-4 font-body">Protective vests, plate carriers, ballistic plates, and tactical protective equipment.</p>
-                        <ul class="space-y-2 text-sm text-gray-600 font-body">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Plate carriers</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Ballistic plates</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Tactical vests</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Tactical Gear -->
-                <div class="bg-tactical-950 rounded-lg overflow-hidden shadow-2xl card-hover tactical-border">
-                    <div class="h-64 bg-gradient-to-br from-tan-900/30 to-tactical-800 flex items-center justify-center relative overflow-hidden">
-                        <img src="https://kimi-web-img.moonshot.cn/img/static.where-e.com/807ebf86501b6fe9778a0323ead068d3cf974da5.jpg" 
-                             alt="ARK Tactical Storefront" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-3xl">🎯</span>
-                            <h3 class="font-tactical text-2xl font-bold text-olive-400 tracking-wider">TACTICAL GEAR</h3>
-                        </div>
-                        <p class="text-gray-500 mb-4 font-body">Gun accessories, parts, optics, holsters, magazines, and tactical accessories.</p>
-                        <ul class="space-y-2 text-sm text-gray-600 font-body">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Gun parts & accessories</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Optics & sights</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-olive-500"></i> Holsters & mag pouches</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8 bg-tactical-950">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-tactical text-4xl md:text-5xl font-bold text-olive-400 mb-4 tracking-wider">INTEL PHOTOS</h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-olive-600 to-tan-400 mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-500 font-body">Visual reconnaissance of our facility</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/static.where-e.com/807ebf86501b6fe9778a0323ead068d3cf974da5.jpg" 
-                         alt="ARK Tactical Storefront" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">STOREFRONT</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
-                         alt="Store Interior" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">SURPLUS GEAR</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/af99997ca3291c934a47ceb86eb2009b6e2fa1de.jpg" 
-                         alt="Military Gear Display" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">BODY ARMOR</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group">
-                    <img src="https://kimi-web-img.moonshot.cn/img/nebula.wsimg.com/553b1f3122a5b3093f8e5f7cdd66f9fc8ce2f335" 
-                         alt="Tactical Equipment" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">TACTICAL GEAR</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2">
-                    <img src="https://kimi-web-img.moonshot.cn/img/img1.wsimg.com/77c4babd4bd049d54d8e4917a298ccb28a010482" 
-                         alt="Gun Accessories" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">GUN ACCESSORIES</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded border-2 border-olive-800 aspect-square cursor-pointer group md:col-span-2">
-                    <img src="https://kimi-web-img.moonshot.cn/img/s3-media0.fl.yelpcdn.com/d73cdbeb4f85dd576258166cdbcdfe1da834ade5.jpg" 
-                         alt="Equipment Display" 
-                         class="w-full h-full object-cover gallery-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-tactical-950/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <span class="text-olive-300 font-tactical font-bold tracking-wider">EQUIPMENT</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visit Us / Store Info -->
-    <section id="visit" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-tactical-900 to-tactical-950 text-white relative overflow-hidden border-t-2 border-olive-800">
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="text-center mb-12">
-                <h2 class="font-tactical text-4xl md:text-5xl font-bold text-olive-400 mb-4 tracking-wider">OPERATIONS CENTER</h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-olive-600 to-tan-400 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Info Card -->
-                <div class="bg-tactical-950/80 backdrop-blur-md rounded-lg p-8 tactical-border">
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-olive-700 rounded flex items-center justify-center flex-shrink-0 border border-olive-500">
-                                <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-tactical text-xl font-bold mb-1 text-olive-300 tracking-wider">COORDINATES</h3>
-                                <p class="text-gray-400 font-body">305 Geri Ln STE B<br>Richmond, KY 40475</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-tan-700 rounded flex items-center justify-center flex-shrink-0 border border-tan-500">
-                                <i data-lucide="phone" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-tactical text-xl font-bold mb-1 text-olive-300 tracking-wider">COMMS</h3>
-                                <a href="tel:8593588082" class="text-gray-400 hover:text-white transition-colors text-lg font-body font-semibold">(859) 358-8082</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-tactical-700 rounded flex items-center justify-center flex-shrink-0 border border-tactical-500">
-                                <i data-lucide="clock" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-tactical text-xl font-bold mb-2 text-olive-300 tracking-wider">OPERATIONAL HOURS</h3>
-                                <div class="grid grid-cols-2 gap-2 text-sm text-gray-500 font-body">
-                                    <div class="flex justify-between"><span>Monday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Tuesday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Wednesday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Thursday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Friday:</span> <span class="text-olive-400">3:00 PM - 6 PM</span></div>
-                                    <div class="flex justify-between"><span>Saturday:</span> <span class="text-olive-400">11 AM - 6 PM</span></div>
-                                    <div class="flex justify-between text-danger-500 col-span-2 font-bold"><span>Sunday:</span> <span>CLOSED</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                        <a href="https://maps.google.com/?q=305+Geri+Ln+STE+B+Richmond+KY+40475" target="_blank" class="flex-1 bg-tactical-800 text-olive-300 py-3 rounded font-tactical font-bold text-center hover:bg-tactical-700 transition-colors border border-olive-600 flex items-center justify-center gap-2 tracking-wider">
-                            <i data-lucide="navigation" class="w-5 h-5"></i>
-                            GET DIRECTIONS
-                        </a>
-                        <a href="tel:8593588082" class="flex-1 btn-tactical text-white py-3 rounded font-tactical font-bold text-center flex items-center justify-center gap-2 tracking-wider">
-                            <i data-lucide="phone-call" class="w-5 h-5"></i>
-                            CALL NOW
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Map Placeholder / Visual -->
-                <div class="relative">
-                    <div class="bg-tactical-950 rounded-lg p-4 shadow-2xl tactical-border transform hover:scale-[1.02] transition-transform duration-500">
-                        <div class="bg-tactical-900 rounded h-80 flex items-center justify-center relative overflow-hidden">
-                            <img src="https://kimi-web-img.moonshot.cn/img/cdn10.localdatacdn.com/545a2b82eb10b4dff95af1193061c205d8c4b93d.jpeg" 
-                                 alt="Store Location Map" 
-                                 class="absolute inset-0 w-full h-full object-cover opacity-40">
-                            <div class="absolute inset-0 grid-pattern opacity-20"></div>
-                            <div class="relative z-10 text-center p-6">
-                                <div class="w-20 h-20 bg-olive-700 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-olive-400 shadow-lg">
-                                    <i data-lucide="crosshair" class="w-10 h-10 text-white"></i>
-                                </div>
-                                <h3 class="font-tactical text-2xl font-bold text-olive-300 mb-2 tracking-wider">RICHMOND, KY</h3>
-                                <p class="text-gray-500 font-body">Tactical Supply Point</p>
-                                <div class="mt-4 inline-block bg-olive-900/50 border border-olive-600 px-4 py-2 rounded">
-                                    <span class="text-olive-400 font-mono text-sm">LAT: 37.7479° N</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-tactical-950 text-white py-12 px-4 sm:px-6 lg:px-8 border-t border-olive-900">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <i data-lucide="crosshair" class="w-8 h-8 text-olive-500"></i>
-                        <div class="flex flex-col">
-                            <span class="font-tactical text-2xl tracking-wider text-olive-400">ARK TACTICAL</span>
-                            <span class="text-xs text-gray-500 tracking-widest">INC</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm font-body">Small business in Richmond, KY. Military surplus, body armor, tactical gear, gun accessories and parts.</p>
-                </div>
-                <div>
-                    <h4 class="font-tactical font-bold text-lg mb-4 text-olive-400 tracking-wider">NAVIGATION</h4>
-                    <ul class="space-y-2 text-sm text-gray-500 font-body">
-                        <li><a href="#about" class="hover:text-olive-400 transition-colors">ABOUT US</a></li>
-                        <li><a href="#products" class="hover:text-olive-400 transition-colors">PRODUCTS</a></li>
-                        <li><a href="#gallery" class="hover:text-olive-400 transition-colors">GALLERY</a></li>
-                        <li><a href="#visit" class="hover:text-olive-400 transition-colors">VISIT US</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-tactical font-bold text-lg mb-4 text-olive-400 tracking-wider">CONTACT</h4>
-                    <ul class="space-y-2 text-sm text-gray-500 font-body">
-                        <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-olive-600"></i> 305 Geri Ln STE B, Richmond, KY</li>
-                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-olive-600"></i> (859) 358-8082</li>
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-olive-600"></i> Mon-Fri 3PM-6PM, Sat 11AM-6PM</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-tactical-800 pt-8 text-center text-sm text-gray-600 font-body">
-                <p>&copy; 2024 ARK Tactical Inc. All rights reserved. | Richmond, KY</p>
-            </div>
-        </div>
+      <div class="control-actions">
+        <button class="action-btn" id="clear-btn" onclick="clearCanvas()" title="Clear drawing (C)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z"/></svg>
+          Clear
+        </button>
+        <button class="action-btn action-save" id="save-btn" onclick="saveDrawing()" title="Save drawing (S)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+          Save
+        </button>
+      </div>
     </footer>
 
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+    <!-- Toast notification -->
+    <div id="toast" class="toast hidden"></div>
 
-        // Mobile menu toggle
-        const mobileBtn = document.getElementById('mobileBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+    <!-- Color legend  -->
+    <div id="color-legend">
+      <div class="legend-title">Speed</div>
+      <div class="legend-bar"></div>
+      <div class="legend-labels">
+        <span>Slow</span><span>Fast</span>
+      </div>
+    </div>
+  </div>
 
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to navbar
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('shadow-2xl');
-            } else {
-                nav.classList.remove('shadow-2xl');
-            }
-        });
-
-        // Pistol Tracking Animation
-        const pistolBox = document.getElementById('pistolBox');
-        const pistolImg = document.getElementById('pistolImg');
-        const crosshair = document.getElementById('crosshair');
-        const coords = document.getElementById('coords');
-
-        pistolBox.addEventListener('mousemove', (e) => {
-            const rect = pistolBox.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Calculate percentage positions
-            const xPercent = (x / rect.width) * 100;
-            const yPercent = (y / rect.height) * 100;
-            
-            // Update coordinates display
-            coords.textContent = `X: ${Math.round(xPercent)} | Y: ${Math.round(yPercent)}`;
-            
-            // Move crosshair
-            crosshair.style.left = x + 'px';
-            crosshair.style.top = y + 'px';
-            
-            // Calculate rotation based on position (pistol follows with slight delay effect)
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const angleX = (x - centerX) / centerX * 20; // Max 20 degrees
-            const angleY = (y - centerY) / centerY * 15; // Max 15 degrees
-            
-            // Move pistol with smooth follow
-            const pistolX = 50 + (xPercent - 50) * 0.3; // Move 30% of cursor movement
-            const pistolY = 50 + (yPercent - 50) * 0.3;
-            
-            pistolImg.style.left = pistolX + '%';
-            pistolImg.style.top = pistolY + '%';
-            pistolImg.style.transform = `translate(-50%, -50%) rotate(${angleX}deg)`;
-        });
-
-        pistolBox.addEventListener('mouseleave', () => {
-            // Reset to center when mouse leaves
-            pistolImg.style.left = '50%';
-            pistolImg.style.top = '50%';
-            pistolImg.style.transform = 'translate(-50%, -50%) rotate(0deg)';
-            crosshair.style.left = '50%';
-            crosshair.style.top = '50%';
-            coords.textContent = 'X: 50 | Y: 50';
-        });
-
-        // Touch support for mobile (if visible on tablets)
-        pistolBox.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const rect = pistolBox.getBoundingClientRect();
-            const touch = e.touches[0];
-            const x = touch.clientX - rect.left;
-            const y = touch.clientY - rect.top;
-            
-            const xPercent = (x / rect.width) * 100;
-            const yPercent = (y / rect.height) * 100;
-            
-            coords.textContent = `X: ${Math.round(xPercent)} | Y: ${Math.round(yPercent)}`;
-            crosshair.style.left = x + 'px';
-            crosshair.style.top = y + 'px';
-            
-            const centerX = rect.width / 2;
-            const angleX = (x - centerX) / centerX * 20;
-            
-            const pistolX = 50 + (xPercent - 50) * 0.3;
-            const pistolY = 50 + (yPercent - 50) * 0.3;
-            
-            pistolImg.style.left = pistolX + '%';
-            pistolImg.style.top = pistolY + '%';
-            pistolImg.style.transform = `translate(-50%, -50%) rotate(${angleX}deg)`;
-        });
-    </script>
+  <!-- MediaPipe Pose via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" crossorigin="anonymous"></script>
+  <script src="style.js"></script>
 </body>
 </html>
