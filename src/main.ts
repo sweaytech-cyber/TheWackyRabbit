@@ -167,9 +167,10 @@ class CADDYBOX {
     try {
       console.log('Starting initialization...');
       
-      // Load the 3D model
-      console.log('Loading 3D model...');
-      await this.scene3D.loadModel('/caddybox.glb');
+      // Load the 3D model from a path relative to this module
+      const modelUrl = new URL('../caddybox.glb', import.meta.url).href;
+      console.log('Loading 3D model from', modelUrl);
+      await this.scene3D.loadModel(modelUrl);
       console.log('Model loaded successfully');
 
       // Hide loading overlay
@@ -183,7 +184,7 @@ class CADDYBOX {
     } catch (error) {
       console.error('Failed to initialize:', error);
       this.loadingOverlay.classList.add('hidden');
-      this.showStatus('Could not load the 3D model. Please refresh the page.', 0);
+      this.showStatus('Could not load the CADDYBOX model. Please refresh the page.', 0);
     }
   }
 
