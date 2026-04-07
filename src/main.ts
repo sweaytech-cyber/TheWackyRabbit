@@ -60,52 +60,105 @@ class AirCanvas {
   private previewStartTop = 0;
 
   constructor() {
-    // Get DOM elements
-    const videoElement = document.getElementById('webcam') as HTMLVideoElement;
-    const sceneCanvas = document.getElementById('scene-canvas') as HTMLCanvasElement;
-    const drawCanvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
-    const handCanvas = document.getElementById('hand-canvas') as HTMLCanvasElement;
+    try {
+      // Get DOM elements
+      const videoElement = document.getElementById('webcam') as HTMLVideoElement;
+      const sceneCanvas = document.getElementById('scene-canvas') as HTMLCanvasElement;
+      const drawCanvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
+      const handCanvas = document.getElementById('hand-canvas') as HTMLCanvasElement;
 
-    // Preview elements
-    this.previewVideo = document.getElementById('preview-video') as HTMLVideoElement;
-    this.previewCanvas = document.getElementById('preview-canvas') as HTMLCanvasElement;
-    this.previewCtx = this.previewCanvas.getContext('2d')!;
+      // Validate required elements exist
+      if (!videoElement || !sceneCanvas || !drawCanvas || !handCanvas) {
+        throw new Error('Missing required DOM elements: webcam, scene-canvas, draw-canvas, or hand-canvas');
+      }
 
-    this.loadingOverlay = document.getElementById('loading-overlay')!;
-    this.statusMessage = document.getElementById('status-message')!;
-    this.colorSwatches = document.querySelectorAll('.color-swatch');
+      // Preview elements
+      this.previewVideo = document.getElementById('preview-video') as HTMLVideoElement;
+      this.previewCanvas = document.getElementById('preview-canvas') as HTMLCanvasElement;
+      if (!this.previewVideo || !this.previewCanvas) {
+        throw new Error('Missing preview elements');
+      }
+      
+      const previewCtx = this.previewCanvas.getContext('2d');
+      if (!previewCtx) {
+        throw new Error('Could not get 2D context for preview canvas');
+      }
+      this.previewCtx = previewCtx;
 
-    // Modal elements
-    this.inviteModal = document.getElementById('invite-modal')!;
-    this.roomCodeDisplay = document.getElementById('room-code')!;
-    this.joinCodeInput = document.getElementById('join-code-input') as HTMLInputElement;
-    this.statusDot = document.getElementById('status-dot')!;
-    this.statusText = document.getElementById('status-text')!;
+      this.loadingOverlay = document.getElementById('loading-overlay')!;
+      this.statusMessage = document.getElementById('status-message')!;
+      if (!this.loadingOverlay || !this.statusMessage) {
+        throw new Error('Missing loading overlay or status message element');
+      }
+      
+      this.colorSwatches = document.querySelectorAll('.color-swatch');
 
-    // Initialize components
-    this.handTracker = new HandTracker(videoElement);
-    this.gestureDetector = new GestureDetector();
-    this.drawingCanvas = new DrawingCanvas(drawCanvas);
-    this.handVisualizer = new HandVisualizer(handCanvas);
-    this.scene3D = new Scene3D(sceneCanvas);
-    this.objectManager = new ObjectManager(
-      this.scene3D,
-      window.innerWidth,
-      window.innerHeight
-    );
-    this.multiplayer = new Multiplayer();
+      // Modal elements
+      this.inviteModal = document.getElementById('invite-modal')!;
+      this.roomCodeDisplay = document.getElementById('room-code')!;
+      this.joinCodeInput = document.getElementById('join-code-input') as HTMLInputElement;
+      this.statusDot = document.getElementById('status-dot')!;
+      this.statusText = document.getElementById('status-text')!;
 
-    // Set initial size
-    this.resize();
+      if (!this.inviteModal || !this.roomCodeDisplay || !this.statusDot || !this.statusText) {
+        throw new Error('Missing modal or status elements');
+      }
 
-    // Setup event listeners
-    this.setupEventListeners();
-    this.setupButtonListeners();
-    this.setupPreviewDrag();
-    this.setupMultiplayer();
+      // Initialize components
+      console.log('Initializing components...');
+      this.handTracker = new HandTracker(videoElement);
+      console.log('HandTracker created');
+      
+      this.gestureDetector = new GestureDetector();
+      console.log('GestureDetector created');
+      
+      this.drawingCanvas = new DrawingCanvas(drawCanvas);
+      console.log('DrawingCanvas created');
+      
+      this.handVisualizer = new HandVisualizer(handCanvas);
+      console.log('HandVisualizer created');
+      
+      this.scene3D = new Scene3D(sceneCanvas);
+      console.log('Scene3D created');
+      
+      this.objectManager = new ObjectManager(
+        this.scene3D,
+        window.innerWidth,
+        window.innerHeight
+      );
+      console.log('ObjectManager created');
+      
+      this.multiplayer = new Multiplayer();
+      console.log('Multiplayer created');
 
-    // Start the application
-    this.init();
+      // Set initial size
+      this.resize();
+
+      // Setup event listeners
+      this.setupEventListeners();
+      this.setupButtonListeners();
+      this.setupPreviewDrag();
+      this.setupMultiplayer();
+
+      console.log('All setup complete, starting initialization...');
+
+      // Start the application
+      this.init().catch(error => {
+        console.error('Initialization failed with error:', error);
+      });
+    } catch (error) {
+      console.error('Constructor failed:', error);
+      const loadingOverlay = document.getElementById('loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.classList.add('hidden');
+      }
+      const statusMessage = document.getElementById('status-message');
+      if (statusMessage) {
+        statusMessage.textContent = `Setup failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+        statusMessage.classList.add('visible');
+      }
+      throw error;
+    }
   }
 
   private setupEventListeners(): void {
@@ -479,20 +532,36 @@ class AirCanvas {
 
   private async init(): Promise<void> {
     try {
-      // Start hand tracking
-      await this.handTracker.start((landmarks) => this.onHandResults(landmarks));
+      console.log('Starting initialization...');
+      
+      // Start hand tracking with timeout
+      console.log('Starting hand tracker...');
+      const handTrackerPromise = this.handTracker.start((landmarks) => this.onHandResults(landmarks));
+      
+      // Set a timeout in case hand tracker initialization hangs
+      const timeoutPromise = new Promise<void>((_, reject) => 
+        setTimeout(() => reject(new Error('Hand tracker initialization timeout after 15 seconds')), 15000)
+      );
+      
+      await Promise.race([handTrackerPromise, timeoutPromise]);
+      console.log('Hand tracker started successfully');
 
       // Setup camera preview
+      console.log('Setting up camera preview...');
       this.setupCameraPreview();
 
       // Hide loading overlay
+      console.log('Hiding loading overlay...');
       this.loadingOverlay.classList.add('hidden');
 
       // Start animation loop
+      console.log('Starting animation loop...');
       this.animate();
+      console.log('Initialization complete!');
     } catch (error) {
       console.error('Failed to initialize:', error);
-      this.showStatus('Camera access denied. Please allow camera access and refresh.');
+      this.loadingOverlay.classList.add('hidden');
+      this.showStatus('Could not start application. Please check camera permissions and refresh the page.', 0);
     }
   }
 
@@ -830,5 +899,27 @@ class AirCanvas {
 
 // Start the application when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  new AirCanvas();
+  try {
+    new AirCanvas();
+  } catch (error) {
+    console.error('Failed to create AirCanvas:', error);
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('hidden');
+    }
+    const statusMessage = document.getElementById('status-message');
+    if (statusMessage) {
+      statusMessage.textContent = 'Error initializing application. Check console for details.';
+      statusMessage.classList.add('visible');
+    }
+  }
+});
+
+// Add global unhandled rejection handler
+window.addEventListener('unhandledrejection', event => {
+  console.error('Unhandled promise rejection:', event.reason);
+  const loadingOverlay = document.getElementById('loading-overlay');
+  if (loadingOverlay) {
+    loadingOverlay.classList.add('hidden');
+  }
 });

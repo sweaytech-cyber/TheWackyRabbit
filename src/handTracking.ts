@@ -86,12 +86,19 @@ export class HandTracker {
 
       this.isRunning = true;
 
+      // Wait a bit for video to actually be ready before starting processing
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       // Use direct requestAnimationFrame for lower latency
       const processFrame = async () => {
         if (!this.isRunning) return;
 
-        if (this.videoElement.readyState >= 2) {
-          await this.hands.send({ image: this.videoElement });
+        try {
+          if (this.videoElement.readyState >= 2) {
+            await this.hands.send({ image: this.videoElement });
+          }
+        } catch (error) {
+          console.error('Error processing frame:', error);
         }
 
         this.animationId = requestAnimationFrame(processFrame);
