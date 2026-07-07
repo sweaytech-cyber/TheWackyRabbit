@@ -223,7 +223,8 @@
 
     .viewer-title-area {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
+      margin-top: 20px;
     }
 
     .viewer-tag {
@@ -337,7 +338,15 @@
 
     .carousel-card:not(.active) {
       filter: none;
-      opacity: 0.9;
+      opacity: 1;
+    }
+
+    .carousel-card:not(.active) img {
+      filter: blur(8px) brightness(0.5);
+    }
+
+    .carousel-card.invitation-card img {
+      filter: none !important;
     }
 
     /* Navigation Controls below Carousel */
@@ -1224,54 +1233,96 @@
       roomDesc.innerText = rooms[idx].desc;
     }
 
-    // Keep the invitation card locked in view and disable carousel rotation.
-    const controls = document.getElementById('carouselControls');
-    if (controls) {
-      controls.style.display = 'none';
-    }
-
-    const container = document.getElementById('carouselContainer');
-    container.style.pointerEvents = 'none';
-
+    // Arrow Controls Click Handlers
     document.getElementById('prevBtn').addEventListener('click', () => {
-      currentYAngle = 0;
+      currentYAngle += angleIncrement;
       applyRotation();
     });
 
     document.getElementById('nextBtn').addEventListener('click', () => {
-      currentYAngle = 0;
+      currentYAngle -= angleIncrement;
       applyRotation();
     });
 
-    container.addEventListener('touchstart', () => {
-      currentYAngle = 0;
-      applyRotation();
+    // Touch Swipe Interactions
+    const container = document.getElementById('carouselContainer');
+
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      baseAngle = currentYAngle;
+      spinner.style.transition = 'none'; // Lock transition during drag
     });
 
-    container.addEventListener('touchmove', () => {
-      currentYAngle = 0;
+    container.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+
+      // Convert drag distance to angular rotation (friction coefficient 0.25)
+      const rotationDelta = deltaX * 0.25;
+      currentYAngle = baseAngle + rotationDelta;
       spinner.style.transform = `rotateY(${currentYAngle}deg)`;
     });
 
     container.addEventListener('touchend', () => {
-      currentYAngle = 0;
+      if (!isDragging) return;
+      isDragging = false;
+
+      // Re-enable smooth transition easing
+      spinner.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+
+      // Snap to nearest card increment
+      const snapAngle = Math.round(currentYAngle / angleIncrement) * angleIncrement;
+      currentYAngle = snapAngle;
       applyRotation();
     });
 
-    container.addEventListener('mousedown', () => {
-      currentYAngle = 0;
-      applyRotation();
+    // Mouse Drag Interactions (Desktop Simulation testing)
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      baseAngle = currentYAngle;
+      spinner.style.transition = 'none';
     });
 
-    window.addEventListener('mousemove', () => {
-      currentYAngle = 0;
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+      const deltaX = currentX - startX;
+      const rotationDelta = deltaX * 0.25;
+      currentYAngle = baseAngle + rotationDelta;
       spinner.style.transform = `rotateY(${currentYAngle}deg)`;
     });
 
     window.addEventListener('mouseup', () => {
-      currentYAngle = 0;
+      if (!isDragging) return;
+      isDragging = false;
+      spinner.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+      const snapAngle = Math.round(currentYAngle / angleIncrement) * angleIncrement;
+      currentYAngle = snapAngle;
       applyRotation();
     });
+
+    // Auto-rotation (Spins slowly when idle)
+    let autoRotateInterval;
+    function startAutoRotation() {
+      autoRotateInterval = setInterval(() => {
+        if (!isDragging) {
+          currentYAngle -= angleIncrement;
+          applyRotation();
+        }
+      }, 7000); // Gentle 7-second rotate intervals
+    }
+
+    function stopAutoRotation() {
+      clearInterval(autoRotateInterval);
+    }
+
+    container.addEventListener('mouseenter', stopAutoRotation);
+    container.addEventListener('mouseleave', startAutoRotation);
+    container.addEventListener('touchstart', stopAutoRotation);
+    container.addEventListener('touchend', startAutoRotation);
 
     // -------------------------------------------------------------
     // Audio Player Toggle Controls
