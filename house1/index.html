@@ -84,7 +84,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      padding: 20px;
+      padding: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -164,7 +164,7 @@
     main {
       position: relative;
       width: 100%;
-      padding: 100px 20px 60px 20px;
+      padding: 80px 16px 40px 16px;
       max-width: 480px; /* Locked mobile width for desktop mockups */
       margin: 0 auto;
       z-index: 10;
@@ -173,8 +173,8 @@
     /* Welcome / Intro Hero */
     .intro-section {
       text-align: center;
-      margin-bottom: 40px;
-      margin-top: 20px;
+      margin-bottom: 32px;
+      margin-top: 8px;
     }
 
     .invitation-badge {
@@ -200,10 +200,10 @@
     }
 
     .invitation-title {
-      font-size: 2.4rem;
-      line-height: 1.15;
+      font-size: 2.2rem;
+      line-height: 1.1;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .invitation-address {
@@ -218,13 +218,13 @@
     .interactive-viewer-section {
       position: relative;
       width: 100%;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
     }
 
     .viewer-title-area {
       text-align: center;
-      margin-bottom: 40px;
-      margin-top: 20px;
+      margin-bottom: 16px;
+      margin-top: 0;
     }
 
     .viewer-tag {
@@ -254,7 +254,7 @@
     .carousel-container {
       perspective: 1000px;
       width: 100%;
-      height: 280px;
+      height: 260px;
       position: relative;
       display: flex;
       justify-content: center;
@@ -354,15 +354,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 30px;
-      margin-top: 15px;
+      gap: 20px;
+      margin-top: 12px;
     }
 
     .control-btn {
       background: none;
       border: 1px solid var(--glass-border);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -385,37 +385,35 @@
 
     /* Room Description Box */
     .room-info-card {
-      margin-top: 20px;
+      margin-top: 12px;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
-      padding: 20px;
+      padding: 16px;
       text-align: center;
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       box-shadow: var(--glass-shadow);
-      min-height: 125px;
+      min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
     .room-title {
-      font-size: 1.3rem;
+      font-size: 1rem;
       color: var(--gold-light);
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       transition: var(--transition-smooth);
       opacity: 1;
-      filter: blur(4px);
     }
 
     .room-desc {
-      font-size: 0.8rem;
+      font-size: 0.65rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.3;
       transition: var(--transition-smooth);
       opacity: 1;
-      filter: blur(3px);
     }
 
     .fade-out {
@@ -428,8 +426,8 @@
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
-      padding: 30px 25px;
-      margin-bottom: 40px;
+      padding: 24px 20px;
+      margin-bottom: 28px;
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       box-shadow: var(--glass-shadow);
@@ -446,18 +444,18 @@
     }
 
     .event-section-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       text-align: center;
       color: var(--text-primary);
-      margin-bottom: 25px;
+      margin-bottom: 18px;
       position: relative;
     }
 
     .event-detail-item {
       display: flex;
       align-items: flex-start;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .event-detail-item:last-child {
@@ -523,7 +521,7 @@
     .rsvp-container {
       perspective: 1200px;
       width: 100%;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
     }
 
     .rsvp-card-inner {
@@ -543,7 +541,7 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: 20px;
-      padding: 30px 25px;
+      padding: 24px 20px;
       box-shadow: var(--glass-shadow);
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -572,7 +570,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      min-height: 480px;
+      min-height: 420px;
       background: radial-gradient(circle at center, #1b1c20 0%, #0d0e11 100%);
       border: 1px solid var(--gold-primary);
       z-index: 1;
@@ -581,7 +579,7 @@
     /* Form Fields Styling */
     .form-group {
       position: relative;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
       width: 100%;
     }
 
@@ -608,7 +606,7 @@
       left: 0;
       top: 10px;
       color: var(--text-secondary);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       pointer-events: none;
       transition: var(--transition-smooth);
     }
@@ -625,8 +623,8 @@
     /* Attendance Buttons Selector */
     .attendance-selector {
       display: flex;
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 10px;
+      margin-bottom: 18px;
       width: 100%;
     }
 
@@ -670,7 +668,7 @@
 
     /* Luxury Dropdown for Guests */
     .guest-select-container {
-      margin-bottom: 25px;
+      margin-bottom: 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -707,8 +705,8 @@
       color: var(--bg-primary);
       border: none;
       border-radius: 12px;
-      padding: 14px;
-      font-size: 0.85rem;
+      padding: 12px;
+      font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -815,21 +813,22 @@
     }
 
     .success-headline {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--gold-primary);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.5s 1.3s ease;
     }
 
     .success-text {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
       max-width: 250px;
       opacity: 0;
       transform: translateY(10px);
       transition: all 0.5s 1.5s ease;
+      line-height: 1.4;
     }
 
     .flipped .success-headline, .flipped .success-text {
@@ -1304,25 +1303,17 @@
       applyRotation();
     });
 
-    // Auto-rotation (Spins slowly when idle)
+    // Auto-rotation (Spins slowly when idle) - DISABLED
     let autoRotateInterval;
     function startAutoRotation() {
-      autoRotateInterval = setInterval(() => {
-        if (!isDragging) {
-          currentYAngle -= angleIncrement;
-          applyRotation();
-        }
-      }, 7000); // Gentle 7-second rotate intervals
+      // Auto-rotation disabled - carousel stays on invitation
     }
 
     function stopAutoRotation() {
       clearInterval(autoRotateInterval);
     }
 
-    container.addEventListener('mouseenter', stopAutoRotation);
-    container.addEventListener('mouseleave', startAutoRotation);
-    container.addEventListener('touchstart', stopAutoRotation);
-    container.addEventListener('touchend', startAutoRotation);
+    // Carousel does not auto-rotate
 
     // -------------------------------------------------------------
     // Audio Player Toggle Controls
