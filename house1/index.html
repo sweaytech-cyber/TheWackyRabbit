@@ -336,7 +336,8 @@
     }
 
     .carousel-card:not(.active) {
-      filter: brightness(0.4) contrast(0.95) blur(8px);
+      filter: none;
+      opacity: 0.9;
     }
 
     /* Navigation Controls below Carousel */
@@ -1223,96 +1224,54 @@
       roomDesc.innerText = rooms[idx].desc;
     }
 
-    // Arrow Controls Click Handlers
+    // Keep the invitation card locked in view and disable carousel rotation.
+    const controls = document.getElementById('carouselControls');
+    if (controls) {
+      controls.style.display = 'none';
+    }
+
+    const container = document.getElementById('carouselContainer');
+    container.style.pointerEvents = 'none';
+
     document.getElementById('prevBtn').addEventListener('click', () => {
-      currentYAngle += angleIncrement;
+      currentYAngle = 0;
       applyRotation();
     });
 
     document.getElementById('nextBtn').addEventListener('click', () => {
-      currentYAngle -= angleIncrement;
+      currentYAngle = 0;
       applyRotation();
     });
 
-    // Touch Swipe Interactions
-    const container = document.getElementById('carouselContainer');
-
-    container.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      startX = e.touches[0].clientX;
-      baseAngle = currentYAngle;
-      spinner.style.transition = 'none'; // Lock transition during drag
+    container.addEventListener('touchstart', () => {
+      currentYAngle = 0;
+      applyRotation();
     });
 
-    container.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX;
-      const deltaX = currentX - startX;
-
-      // Convert drag distance to angular rotation (friction coefficient 0.25)
-      const rotationDelta = deltaX * 0.25;
-      currentYAngle = baseAngle + rotationDelta;
+    container.addEventListener('touchmove', () => {
+      currentYAngle = 0;
       spinner.style.transform = `rotateY(${currentYAngle}deg)`;
     });
 
     container.addEventListener('touchend', () => {
-      if (!isDragging) return;
-      isDragging = false;
-
-      // Re-enable smooth transition easing
-      spinner.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-
-      // Snap to nearest card increment
-      const snapAngle = Math.round(currentYAngle / angleIncrement) * angleIncrement;
-      currentYAngle = snapAngle;
+      currentYAngle = 0;
       applyRotation();
     });
 
-    // Mouse Drag Interactions (Desktop Simulation testing)
-    container.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-      baseAngle = currentYAngle;
-      spinner.style.transition = 'none';
+    container.addEventListener('mousedown', () => {
+      currentYAngle = 0;
+      applyRotation();
     });
 
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX;
-      const deltaX = currentX - startX;
-      const rotationDelta = deltaX * 0.25;
-      currentYAngle = baseAngle + rotationDelta;
+    window.addEventListener('mousemove', () => {
+      currentYAngle = 0;
       spinner.style.transform = `rotateY(${currentYAngle}deg)`;
     });
 
     window.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      spinner.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-      const snapAngle = Math.round(currentYAngle / angleIncrement) * angleIncrement;
-      currentYAngle = snapAngle;
+      currentYAngle = 0;
       applyRotation();
     });
-
-    // Auto-rotation (Spins slowly when idle)
-    let autoRotateInterval;
-    function startAutoRotation() {
-      autoRotateInterval = setInterval(() => {
-        if (!isDragging) {
-          currentYAngle -= angleIncrement;
-          applyRotation();
-        }
-      }, 7000); // Gentle 7-second rotate intervals
-    }
-
-    function stopAutoRotation() {
-      clearInterval(autoRotateInterval);
-    }
-
-    container.addEventListener('mouseenter', stopAutoRotation);
-    container.addEventListener('mouseleave', startAutoRotation);
-    container.addEventListener('touchstart', stopAutoRotation);
-    container.addEventListener('touchend', startAutoRotation);
 
     // -------------------------------------------------------------
     // Audio Player Toggle Controls
