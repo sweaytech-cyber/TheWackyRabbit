@@ -857,6 +857,54 @@
       margin-top: 40px;
     }
 
+    /* Mobile Responsive - Smaller Cards */
+    @media (max-width: 480px) {
+      .carousel-container {
+        height: 240px;
+        margin-bottom: 20px;
+      }
+
+      .carousel-spinner {
+        width: 140px;
+        height: 210px;
+      }
+
+      .carousel-card {
+        width: 140px;
+        height: 210px;
+      }
+
+      .invitation-content {
+        padding: 14px 10px;
+      }
+
+      .invitation-content h2 {
+        font-size: 1.1rem;
+        margin: 2px 0 6px 0;
+        letter-spacing: 1px;
+      }
+
+      .invitation-content p {
+        font-size: 0.65rem;
+        margin: 2px 0;
+      }
+
+      .carousel-controls {
+        gap: 15px;
+        margin-top: 8px;
+      }
+
+      .control-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .control-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
     
   </style>
 </head>
@@ -1147,7 +1195,7 @@
     function setupCarousel() {
       // Radius of 3D cylinder
       const isMobile = window.innerWidth < 480;
-      const radiusZ = isMobile ? 220 : 300; // TranslateZ based on device width
+      const radiusZ = isMobile ? 180 : 300; // TranslateZ based on device width
 
       rooms.forEach((room, idx) => {
         const card = document.createElement('div');
