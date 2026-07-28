@@ -31,6 +31,7 @@
       --glass-border: rgba(212, 175, 55, 0.22);
       --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
       --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --safe-area-top: env(safe-area-inset-top, 0px);
     }
 
     * {
@@ -285,7 +286,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      padding: 20px;
+      padding: calc(16px + var(--safe-area-top)) 20px 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -365,7 +366,7 @@
     main {
       position: relative;
       width: 100%;
-      padding: 100px 20px 60px 20px;
+      padding: calc(108px + var(--safe-area-top)) 20px 60px 20px;
       max-width: 480px; /* Locked mobile width for desktop mockups */
       margin: 0 auto;
       z-index: 10;
@@ -1187,12 +1188,12 @@
       }
 
       main {
-        padding: 78px 12px 32px 12px;
+        padding: calc(96px + var(--safe-area-top)) 12px 32px 12px;
         max-width: 100%;
       }
 
       header {
-        padding: 10px 12px;
+        padding: calc(10px + var(--safe-area-top)) 12px 10px 12px;
       }
 
       .brand-logo {
